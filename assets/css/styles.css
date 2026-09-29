@@ -286,6 +286,40 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .btn--block { width: 100%; }
 
+/* ---------- 4b. Brilho dourado nas bordas (segue o cursor) ---------- */
+.btn-glow { position: relative; display: inline-block; max-width: 100%; }
+.btn-glow:has(.btn--block) { display: block; width: 100%; }
+.btn-glow .btn { position: relative; z-index: 1; }
+.btn-glow__ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: calc(100% + 14px);
+  height: calc(100% + 14px);
+  border-radius: var(--radius-pill);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  z-index: 0;
+}
+.btn-glow__ring::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent 30%, rgba(var(--gold-rgb), 0.55) 75%, var(--gold-hi) 100%);
+  filter: blur(11px);
+}
+.btn-glow__ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent 55%, rgba(var(--gold-rgb), 0.5) 88%, var(--gold-hi) 100%);
+  filter: blur(3px);
+}
+.btn-glow__ring--left { transform: translate(-50%, -50%) scaleX(-1); }
+
 /* CTA centralizado na largura da seção (todas as seções, menos o hero) */
 .section-cta {
   display: flex;
@@ -430,26 +464,36 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero__text { margin-top: 24px; max-width: 46ch; color: #c8d2e2; font-size: clamp(17.2px, 1.8vw, 19.6px); }
 .hero__cta { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
 
-/* Vídeo de fundo empurrado para a lateral direita (onde ficava o simulador) */
-.hero .photo-section__bg {
-  left: auto;
-  right: 0;
-  width: min(78%, 1120px);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 26%);
-          mask-image: linear-gradient(to right, transparent 0%, #000 26%);
-}
+/* Fundo estrelado a tela cheia, com leve escurecida à esquerda (onde fica o texto) */
 .hero .photo-section__overlay {
-  background: linear-gradient(90deg, var(--navy-deep) 22%, rgba(10, 17, 40, 0.62) 55%, rgba(10, 17, 40, 0.32) 100%);
+  background: linear-gradient(90deg, rgba(6, 12, 22, 0.75) 0%, rgba(6, 12, 22, 0.45) 45%, rgba(6, 12, 22, 0.2) 100%);
 }
 @media (max-width: 900px) {
-  .hero .photo-section__bg {
-    left: 0; right: auto;
-    width: 100%;
-    -webkit-mask-image: none;
-            mask-image: none;
-  }
   .hero .photo-section__overlay {
-    background: linear-gradient(180deg, rgba(10, 17, 40, 0.82), rgba(10, 17, 40, 0.92));
+    background: linear-gradient(180deg, rgba(6, 12, 22, 0.55) 0%, rgba(6, 12, 22, 0.88) 62%, rgba(6, 12, 22, 0.94) 100%);
+  }
+}
+
+/* Globo 3D interativo — "estoura" a borda direita do hero, mas fica contido
+   pelo overflow:hidden do .photo-section, sem invadir a próxima seção. */
+.hero__globe {
+  position: absolute;
+  top: 50%;
+  right: clamp(-160px, -8vw, -40px);
+  transform: translateY(-50%);
+  width: clamp(480px, 50vw, 880px);
+  height: clamp(480px, 50vw, 880px);
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .hero__globe {
+    top: auto;
+    bottom: clamp(-120px, -10vh, -40px);
+    right: 50%;
+    transform: translateX(50%);
+    width: clamp(360px, 92vw, 520px);
+    height: clamp(360px, 92vw, 520px);
+    opacity: 0.9;
   }
 }
 
@@ -511,6 +555,42 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .simulator__foot span { font-size: 13.8px; color: var(--gray-400); }
 .simulator__foot strong { font-family: var(--font-display); color: #0f9d6b; font-size: 18.4px; }
+
+/* ---------- 6b. Pilha com efeito de paralaxe ("O que fazemos por você") ---------- */
+.stack { position: relative; }
+.stack__panel {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.stack__panel--light { background: var(--white); color: var(--gray-600); }
+.stack__panel--dark { background: var(--navy-deep); color: var(--text); }
+.stack__inner { max-width: 640px; display: flex; flex-direction: column; gap: 16px; }
+.stack__num {
+  font-family: var(--font-title);
+  font-size: clamp(52px, 8vw, 96px);
+  line-height: 1;
+  color: rgba(var(--gold-rgb), 0.28);
+}
+.stack__panel--dark .stack__num { color: rgba(var(--gold-rgb), 0.35); }
+.stack__inner .tag { margin-top: -8px; }
+.stack__title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(28.8px, 4vw, 42px);
+  line-height: 1.15;
+  color: var(--heading);
+}
+.stack__panel--dark .stack__title { color: #fff; }
+.stack__text { font-size: clamp(16.1px, 1.6vw, 18.4px); line-height: 1.65; color: var(--gray-600); }
+.stack__panel--dark .stack__text { color: #b4c0d0; }
+
+@media (max-width: 767px) {
+  .stack__panel { min-height: 100svh; }
+}
 
 /* ---------- 7. Grid de cards ---------- */
 .card-grid {
@@ -585,7 +665,35 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--gold);
 }
 
-/* ---------- 8. Sobre / carrossel do local ---------- */
+/* ---------- 8. Escritório nos EUA: globo com pings + carrossel do local ---------- */
+.office-map {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto clamp(32px, 5vw, 56px);
+}
+.office-map__globe { position: absolute; inset: 0; }
+.office-map__legend {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: clamp(16px, 3vw, 32px);
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13.8px;
+  color: var(--heading);
+}
+.office-map__legend li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.office-map__dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: 0 0 0 4px rgba(var(--gold-rgb), 0.18); }
+.office-map__dot--us { background: var(--gold); }
+.office-map__dot--br { background: var(--gold-hi); }
+
+/* ---------- 8b. Sobre / carrossel do local ---------- */
 .split__body { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 40px; }
 .split__body .btn { margin-top: 8px; }
 
