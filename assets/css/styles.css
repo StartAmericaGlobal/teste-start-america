@@ -605,14 +605,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   top: 0;
   display: flex;
   align-items: center;
-  padding-block: clamp(4px, 0.75vh, 8px);
+  padding-block: clamp(20px, 3vh, 36px);
   overflow: hidden;
 }
-/* Um pouco mais de respiro embaixo dos dois primeiros blocos, que ficaram
-   apertados demais colados no próximo painel. */
+/* Mais respiro embaixo dos dois primeiros blocos, para separar melhor
+   as informações 01, 02 e 03 entre si. */
 .stack__panel:nth-child(1),
 .stack__panel:nth-child(2) {
-  padding-bottom: clamp(28px, 4vw, 48px);
+  padding-bottom: clamp(56px, 8vw, 96px);
 }
 .stack__panel--light { background: var(--white); color: var(--gray-600); }
 .stack__panel--dark { background: var(--navy-deep); color: var(--text); }
@@ -850,6 +850,15 @@ ul { margin: 0; padding: 0; list-style: none; }
   transform: translateY(-6px);
   box-shadow: 0 40px 70px -34px rgba(10, 17, 40, 0.45);
 }
+
+/* Bullets de "Empresário brasileiro..." — sem contorno nem sombreamento,
+   título do painel um pouco menor. */
+.mini-card {
+  border: none;
+  box-shadow: none;
+}
+.mini-card:hover { box-shadow: none; }
+.mini-card .tile-visual__name { font-size: 17.2px; }
 
 /* Painel escuro no topo do cartão, com o brilho dourado "gloss" no canto —
    aproxima visualmente do cartão de referência sem depender de imagem. */
