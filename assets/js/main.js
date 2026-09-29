@@ -216,24 +216,6 @@
     updateArrows();
   });
 
-  /* ---------- Mapa de rota "Onde estamos": botões Orlando / São Paulo ---------- */
-  document.querySelectorAll('[data-office-route]').forEach(function (wrap) {
-    var buttons = wrap.querySelectorAll('.office-route__btn');
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var city = btn.dataset.city;
-        var isActive = btn.getAttribute('aria-pressed') === 'true';
-        buttons.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-        if (isActive) {
-          wrap.removeAttribute('data-active');
-        } else {
-          btn.setAttribute('aria-pressed', 'true');
-          wrap.setAttribute('data-active', city);
-        }
-      });
-    });
-  });
-
   /* ---------- Reveal on scroll ---------- */
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {

@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260929h" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260929i" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -190,27 +190,7 @@
           </p>
         </div>
 
-        <div class="office-route reveal" data-office-route>
-          <div class="office-route__buttons" role="group" aria-label="Focar em uma cidade no mapa">
-            <button type="button" class="office-route__btn" data-city="orlando" aria-pressed="false">Orlando</button>
-            <button type="button" class="office-route__btn" data-city="saopaulo" aria-pressed="false">São Paulo</button>
-          </div>
-          <div class="office-route__map">
-            <svg class="office-map__svg" viewBox="0 0 600 300" role="img" aria-label="Rota entre o escritório em Orlando e o time em São Paulo">
-              <defs>
-                <pattern id="office-map-dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                  <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor" opacity="0.16" />
-                </pattern>
-              </defs>
-              <rect x="0" y="0" width="600" height="300" fill="url(#office-map-dots)" />
-              <path class="office-map__route" d="M130,222 C230,64 380,64 472,168" fill="none" />
-              <circle class="office-map__halo office-map__halo--us" cx="130" cy="222" r="20" />
-              <circle class="office-map__marker office-map__marker--us" cx="130" cy="222" r="7" />
-              <circle class="office-map__halo office-map__halo--br" cx="472" cy="168" r="20" />
-              <circle class="office-map__marker office-map__marker--br" cx="472" cy="168" r="7" />
-            </svg>
-          </div>
-        </div>
+        <div class="office-flatmap reveal" id="office-flatmap" aria-label="Mapa-múndi com a localização de Orlando e São Paulo"></div>
         <ul class="office-map__legend">
           <li><span class="office-map__dot office-map__dot--us"></span>Orlando, Estados Unidos</li>
           <li><span class="office-map__dot office-map__dot--br"></span>São Paulo, Brasil</li>
@@ -626,11 +606,12 @@
     </div>
   </div>
 
-  <script src="assets/js/i18n.js?v=20260929h" defer></script>
-  <script src="assets/js/main.js?v=20260929h" defer></script>
-  <script src="assets/js/button-glow.js?v=20260929h" defer></script>
+  <script src="assets/js/i18n.js?v=20260929i" defer></script>
+  <script src="assets/js/main.js?v=20260929i" defer></script>
+  <script src="assets/js/button-glow.js?v=20260929i" defer></script>
   <script type="module">
-    import { initGlobe } from './assets/js/globe.js?v=20260929h';
+    import { initGlobe } from './assets/js/globe.js?v=20260929i';
+    import { initFlatMap } from './assets/js/office-map.js?v=20260929i';
 
     var heroGlobeEl = document.getElementById('hero-globe');
     if (heroGlobeEl) {
@@ -644,6 +625,20 @@
         initialLongitude: 60,
         oceanColor: '#0000',
         direction: 'left'
+      });
+    }
+
+    var officeFlatMapEl = document.getElementById('office-flatmap');
+    if (officeFlatMapEl) {
+      initFlatMap(officeFlatMapEl, {
+        dotColor: 'rgba(148, 163, 184, 0.55)',
+        dotSize: 1.3,
+        density: 7,
+        markerColor: '#E2C98A',
+        markers: [
+          { lat: 28.5383, lng: -81.3792 },
+          { lat: -23.5505, lng: -46.6333 }
+        ]
       });
     }
   </script>

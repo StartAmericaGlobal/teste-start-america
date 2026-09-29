@@ -729,76 +729,35 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--gold);
 }
 
-/* ---------- 8. Escritório nos EUA: mapa de rota com botões de foco + carrossel do local ---------- */
-.office-route { max-width: 720px; margin: 0 auto; }
-.office-route__buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-.office-route__btn {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  padding: 12px 24px;
-  border-radius: var(--radius-pill);
-  border: 2px solid rgba(var(--gold-rgb), 0.7);
-  background: transparent;
-  color: var(--gold);
-  cursor: pointer;
-  transition: background 250ms ease, color 250ms ease, box-shadow 250ms ease, transform 150ms ease;
-}
-.office-route__btn:hover { transform: translateY(-1px); }
-.office-route__btn[aria-pressed="true"] {
-  background: var(--gold);
-  color: var(--navy);
-  box-shadow: 0 0 10px rgba(var(--gold-rgb), 0.7), 0 0 26px rgba(var(--gold-rgb), 0.45);
-}
-.office-route__map {
+/* ---------- 8. Escritório nos EUA: mapa-múndi pontilhado + carrossel do local ---------- */
+.office-flatmap {
   position: relative;
   width: 100%;
+  max-width: 720px;
   aspect-ratio: 2 / 1;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(var(--gold-rgb), 0.25);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  margin: 0 auto;
 }
 @media (max-width: 600px) {
-  .office-route__map { aspect-ratio: 4 / 3; }
+  .office-flatmap { aspect-ratio: 4 / 3; }
 }
-.office-map__svg {
+.office-flatmap__svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  color: var(--gold);
-  background: linear-gradient(155deg, rgba(18, 26, 41, 0.92) 0%, rgba(6, 12, 22, 0.98) 100%);
-  transition: transform 650ms cubic-bezier(.22,1,.36,1);
-  transform-origin: 50% 50%;
 }
-.office-map__route {
-  stroke: rgba(var(--gold-rgb), 0.75);
-  stroke-width: 2.5;
-  stroke-dasharray: 7 9;
-  stroke-linecap: round;
-  transition: opacity 350ms ease;
+@keyframes flatmap-pulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  70%  { transform: scale(3.4); opacity: 0; }
+  100% { transform: scale(3.4); opacity: 0; }
 }
-.office-map__marker { fill: var(--gold-hi); transition: opacity 350ms ease; }
-.office-map__marker--us { fill: var(--gold); }
-.office-map__halo { fill: rgba(var(--gold-rgb), 0.16); transition: opacity 350ms ease; }
-
-/* Foco em uma cidade: aproxima o mapa e esmaece a outra ponta da rota */
-.office-route[data-active="orlando"] .office-map__svg { transform: scale(2.3); transform-origin: 21.7% 74%; }
-.office-route[data-active="saopaulo"] .office-map__svg { transform: scale(2.3); transform-origin: 78.7% 56%; }
-.office-route[data-active] .office-map__route { opacity: 0; }
-.office-route[data-active="orlando"] .office-map__marker--br,
-.office-route[data-active="orlando"] .office-map__halo--br { opacity: 0; }
-.office-route[data-active="saopaulo"] .office-map__marker--us,
-.office-route[data-active="saopaulo"] .office-map__halo--us { opacity: 0; }
+.office-flatmap__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: flatmap-pulse 2.4s ease-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .office-map__svg { transition: none; }
+  .office-flatmap__halo { animation: none; opacity: 0.3; }
 }
 
 .office-map__legend {

@@ -27,6 +27,53 @@ function loadLandFeatures() {
   return landFeaturesPromise;
 }
 
+var landDotsCache = {};
+
+/**
+ * Retorna (com cache) a lista de coordenadas [lng, lat] que caem em terra,
+ * amostradas a partir do contorno real dos continentes. Usada tanto pelo
+ * globo 3D quanto pelo mapa plano pontilhado.
+ */
+export function getLandDots(density) {
+  var dotSpacing = mapLinear(Math.max(1, Math.min(10, density)), 1, 10, 24, 8);
+  var cacheKey = String(density);
+  if (landDotsCache[cacheKey]) return Promise.resolve(landDotsCache[cacheKey]);
+
+  return loadLandFeatures().then(function (landFeatures) {
+    var dotCoordinates = [];
+    var bitmapWidth = 720, bitmapHeight = 360;
+    var offscreen = document.createElement('canvas');
+    offscreen.width = bitmapWidth; offscreen.height = bitmapHeight;
+    var ctx = offscreen.getContext('2d');
+    var projection = geoEquirectangular().fitSize([bitmapWidth, bitmapHeight], { type: 'Sphere' });
+    var pathGenerator = geoPath().projection(projection).context(ctx);
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, bitmapWidth, bitmapHeight);
+    ctx.fillStyle = '#fff'; ctx.beginPath();
+    landFeatures.features.forEach(function (f) { pathGenerator(f); });
+    ctx.fill();
+    var pixels = ctx.getImageData(0, 0, bitmapWidth, bitmapHeight).data;
+    function isOnLand(lng, lat) {
+      var x = Math.round(((lng + 180) / 360) * bitmapWidth) % bitmapWidth;
+      var y = Math.round(((90 - lat) / 180) * bitmapHeight);
+      var cy = Math.max(0, Math.min(bitmapHeight - 1, y));
+      return pixels[(cy * bitmapWidth + x) * 4] > 128;
+    }
+
+    var baseStep = dotSpacing * 0.08;
+    for (var lat = -90; lat <= 90; lat += baseStep) {
+      var latRad = (Math.abs(lat) * Math.PI) / 180;
+      var cosLat = Math.cos(latRad);
+      var lngStep = cosLat > 0.01 ? baseStep / Math.max(0.3, cosLat) : 360;
+      for (var lng = -180; lng < 180; lng += lngStep) {
+        if (isOnLand(lng, lat)) dotCoordinates.push([lng, lat]);
+      }
+    }
+
+    landDotsCache[cacheKey] = dotCoordinates;
+    return dotCoordinates;
+  });
+}
+
 function parseColorToRgba(input) {
   if (!input || input.trim() === '') return { r: 0, g: 0, b: 0, a: 0 };
   var str = input.trim();
@@ -113,7 +160,6 @@ export function initGlobe(container, options) {
   if (reduceMotion) speed = 0;
 
   var dotSizeMultiplier = mapLinear(Math.max(1, Math.min(10, dotSize)), 1, 10, 0.1, 0.5);
-  var dotSpacing = mapLinear(Math.max(1, Math.min(10, density)), 1, 10, 24, 8);
   var scaleMultiplier = mapLinear(Math.max(1, Math.min(20, scale)), 1, 20, 0.2, 2);
   var markerRadiusMultiplier = mapLinear(Math.max(0, Math.min(100, markerSize)), 0, 100, 0.1, 2.5);
   var smoothingN = Math.max(0, Math.min(1, smoothing / 10));
@@ -322,36 +368,7 @@ export function initGlobe(container, options) {
   });
   resizeObserver.observe(container);
 
-  loadLandFeatures().then(function (landFeatures) {
-    var dotCoordinates = [];
-    var bitmapWidth = 720, bitmapHeight = 360;
-    var offscreen = document.createElement('canvas');
-    offscreen.width = bitmapWidth; offscreen.height = bitmapHeight;
-    var ctx = offscreen.getContext('2d');
-    var projection = geoEquirectangular().fitSize([bitmapWidth, bitmapHeight], { type: 'Sphere' });
-    var pathGenerator = geoPath().projection(projection).context(ctx);
-    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, bitmapWidth, bitmapHeight);
-    ctx.fillStyle = '#fff'; ctx.beginPath();
-    landFeatures.features.forEach(function (f) { pathGenerator(f); });
-    ctx.fill();
-    var pixels = ctx.getImageData(0, 0, bitmapWidth, bitmapHeight).data;
-    function isOnLand(lng, lat) {
-      var x = Math.round(((lng + 180) / 360) * bitmapWidth) % bitmapWidth;
-      var y = Math.round(((90 - lat) / 180) * bitmapHeight);
-      var cy = Math.max(0, Math.min(bitmapHeight - 1, y));
-      return pixels[(cy * bitmapWidth + x) * 4] > 128;
-    }
-
-    var baseStep = dotSpacing * 0.08;
-    for (var lat = -90; lat <= 90; lat += baseStep) {
-      var latRad = (Math.abs(lat) * Math.PI) / 180;
-      var cosLat = Math.cos(latRad);
-      var lngStep = cosLat > 0.01 ? baseStep / Math.max(0.3, cosLat) : 360;
-      for (var lng = -180; lng < 180; lng += lngStep) {
-        if (isOnLand(lng, lat)) dotCoordinates.push([lng, lat]);
-      }
-    }
-
+  getLandDots(density).then(function (dotCoordinates) {
     if (dotCoordinates.length > 0) {
       var dotGeometry = new THREE.SphereGeometry(0.01 * dotSizeMultiplier, 4, 4);
       var dotMaterial = new THREE.MeshBasicMaterial({
