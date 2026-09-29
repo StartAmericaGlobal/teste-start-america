@@ -20,6 +20,10 @@
     var wrap = document.createElement('span');
     wrap.className = 'btn-glow';
 
+    var coreGlow = document.createElement('span');
+    coreGlow.className = 'btn-glow__core';
+    coreGlow.setAttribute('aria-hidden', 'true');
+
     var rightGlow = document.createElement('span');
     rightGlow.className = 'btn-glow__ring btn-glow__ring--right';
     rightGlow.setAttribute('aria-hidden', 'true');
@@ -29,6 +33,7 @@
     leftGlow.setAttribute('aria-hidden', 'true');
 
     btn.parentNode.insertBefore(wrap, btn);
+    wrap.appendChild(coreGlow);
     wrap.appendChild(rightGlow);
     wrap.appendChild(leftGlow);
     wrap.appendChild(btn);
@@ -43,6 +48,10 @@
       var intensity = Math.pow(magnitude, GLOW_RISE);
       rightGlow.style.opacity = (normalized > 0 ? intensity : 0).toFixed(3);
       leftGlow.style.opacity = (normalized < 0 ? intensity : 0).toFixed(3);
+      // Sensibilidade extra: um brilho central que reage quando o cursor
+      // passa perto do meio do botão, não só perto das bordas.
+      var centerIntensity = inside ? Math.max(0, 1 - magnitude * 1.5) : 0;
+      coreGlow.style.opacity = (centerIntensity * 0.85).toFixed(3);
     }
     measure(); paint();
 

@@ -47,6 +47,22 @@ function parseColorToRgba(input) {
       a: 1
     };
   }
+  if (hex.length === 4) {
+    return {
+      r: parseInt(hex[0] + hex[0], 16) / 255,
+      g: parseInt(hex[1] + hex[1], 16) / 255,
+      b: parseInt(hex[2] + hex[2], 16) / 255,
+      a: parseInt(hex[3] + hex[3], 16) / 255
+    };
+  }
+  if (hex.length === 3) {
+    return {
+      r: parseInt(hex[0] + hex[0], 16) / 255,
+      g: parseInt(hex[1] + hex[1], 16) / 255,
+      b: parseInt(hex[2] + hex[2], 16) / 255,
+      a: 1
+    };
+  }
   return { r: 1, g: 1, b: 1, a: 1 };
 }
 
@@ -176,6 +192,11 @@ export function initGlobe(container, options) {
   var velocity = { x: 0, y: 0 };
   var isDragging = false;
   var isHovering = false;
+  var followPointer = options.followPointer !== false;
+  var pointerTilt = { x: 0, y: 0 };
+  var pointerTiltTarget = { x: 0, y: 0 };
+  var maxTiltX = 0.32;
+  var maxTiltY = 0.2;
   var lastMouseX = 0, lastMouseY = 0;
   var animationFrameId = null;
   var lerpFactor = smoothingN === 0 ? 1 : mapLinear(smoothingN, 0, 1, 0.4, 0.03);
@@ -214,14 +235,23 @@ export function initGlobe(container, options) {
     rotation.x += dx * lerpFactor;
     rotation.y += dy * lerpFactor;
     rotation.y = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotation.y));
-    globeGroup.rotation.y = rotation.x;
-    globeGroup.rotation.x = rotation.y;
+
+    var tiltDx = pointerTiltTarget.x - pointerTilt.x;
+    var tiltDy = pointerTiltTarget.y - pointerTilt.y;
+    if (followPointer && !isDragging) {
+      pointerTilt.x += tiltDx * 0.08;
+      pointerTilt.y += tiltDy * 0.08;
+    }
+
+    globeGroup.rotation.y = rotation.x + (isDragging ? 0 : pointerTilt.x);
+    globeGroup.rotation.x = rotation.y + (isDragging ? 0 : pointerTilt.y);
     render();
 
     var hasVelocity = Math.abs(velocity.x) > threshold || Math.abs(velocity.y) > threshold;
     var hasLerpDelta = Math.abs(dx) > threshold || Math.abs(dy) > threshold;
+    var hasTiltDelta = followPointer && (Math.abs(tiltDx) > 0.0006 || Math.abs(tiltDy) > 0.0006);
     var hasMarkerPulse = markerMeshes.length > 0;
-    if (isDragging || rotationSpeed !== 0 || hasVelocity || hasLerpDelta || hasMarkerPulse) {
+    if (isDragging || rotationSpeed !== 0 || hasVelocity || hasLerpDelta || hasTiltDelta || hasMarkerPulse) {
       animationFrameId = requestAnimationFrame(animate);
     } else {
       animationFrameId = null;
@@ -259,11 +289,24 @@ export function initGlobe(container, options) {
   canvas.addEventListener('pointerdown', handlePointerDown);
 
   function handlePointerMove(event) {
-    if (!stopOnHover) return;
-    isHovering = true;
+    if (stopOnHover) isHovering = true;
+    if (followPointer && !isDragging) {
+      var rect = container.getBoundingClientRect();
+      var nx = rect.width > 0 ? ((event.clientX - rect.left) / rect.width) * 2 - 1 : 0;
+      var ny = rect.height > 0 ? ((event.clientY - rect.top) / rect.height) * 2 - 1 : 0;
+      nx = Math.max(-1, Math.min(1, nx));
+      ny = Math.max(-1, Math.min(1, ny));
+      pointerTiltTarget.x = nx * maxTiltX;
+      pointerTiltTarget.y = ny * maxTiltY;
+    }
     startAnimation();
   }
-  function handlePointerLeave() { isHovering = false; }
+  function handlePointerLeave() {
+    isHovering = false;
+    pointerTiltTarget.x = 0;
+    pointerTiltTarget.y = 0;
+    startAnimation();
+  }
   canvas.addEventListener('pointermove', handlePointerMove);
   canvas.addEventListener('pointerleave', handlePointerLeave);
   canvas.style.touchAction = 'none';

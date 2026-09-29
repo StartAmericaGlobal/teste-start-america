@@ -290,6 +290,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-glow { position: relative; display: inline-block; max-width: 100%; }
 .btn-glow:has(.btn--block) { display: block; width: 100%; }
 .btn-glow .btn { position: relative; z-index: 1; }
+.btn-glow__core {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 66%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.6) 0%, transparent 72%);
+  filter: blur(13px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+  z-index: 0;
+}
 .btn-glow__ring {
   position: absolute;
   left: 50%; top: 50%;
@@ -503,13 +517,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section-blur {
   position: relative;
   z-index: 5;
-  height: clamp(70px, 9vw, 140px);
-  margin-top: clamp(-70px, -9vw, -140px);
+  height: clamp(110px, 13vw, 200px);
+  margin-top: clamp(-110px, -13vw, -200px);
   pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(6, 12, 22, 0.6) 0%,
+    rgba(6, 12, 22, 0.32) 45%,
+    rgba(255, 255, 255, 0) 100%);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
 }
 @media (prefers-reduced-motion: reduce) {
   .section-blur { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
@@ -574,6 +592,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .simulator__foot span { font-size: 13.8px; color: var(--gray-400); }
 .simulator__foot strong { font-family: var(--font-display); color: #0f9d6b; font-size: 18.4px; }
 
+/* Seção "O que fazemos por você": título mais colado da pilha de painéis,
+   e o CTA final mais colado do último painel — sem o respiro padrão da .section. */
+#servicos { padding-bottom: clamp(16px, 3vw, 32px); }
+#servicos .section__head { margin-bottom: clamp(16px, 2.5vw, 24px); }
+#servicos-cta { padding-top: clamp(16px, 3vw, 32px); padding-bottom: clamp(40px, 6vw, 72px); }
+
 /* ---------- 6b. Pilha com efeito de paralaxe ("O que fazemos por você") ---------- */
 .stack { position: relative; }
 .stack__panel {
@@ -581,12 +605,33 @@ ul { margin: 0; padding: 0; list-style: none; }
   top: 0;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: clamp(64px, 11vh, 128px);
   overflow: hidden;
 }
 .stack__panel--light { background: var(--white); color: var(--gray-600); }
 .stack__panel--dark { background: var(--navy-deep); color: var(--text); }
+.stack__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  max-width: 1120px;
+}
+.stack__panel:nth-child(even) .stack__media { order: -1; }
 .stack__inner { max-width: 640px; display: flex; flex-direction: column; gap: 16px; }
+.stack__media {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
+}
+.stack__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 900px) {
+  .stack__grid { grid-template-columns: 1fr; gap: 28px; }
+  .stack__panel:nth-child(even) .stack__media { order: 0; }
+  .stack__media { max-width: 420px; margin: 0 auto; }
+}
 .stack__num {
   font-family: var(--font-title);
   font-size: clamp(52px, 8vw, 96px);
@@ -688,15 +733,33 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: relative;
   width: 100%;
   max-width: 720px;
-  aspect-ratio: 1 / 1;
-  margin: 0 auto clamp(32px, 5vw, 56px);
+  aspect-ratio: 2 / 1;
+  margin: 0 auto;
 }
-.office-map__globe { position: absolute; inset: 0; }
-.office-map__legend {
+@media (max-width: 600px) {
+  .office-map { aspect-ratio: 4 / 3; }
+}
+.office-map__svg {
   position: absolute;
-  left: 50%;
-  bottom: 8px;
-  transform: translateX(-50%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--gold);
+  border-radius: 24px;
+  background: linear-gradient(155deg, rgba(18, 26, 41, 0.92) 0%, rgba(6, 12, 22, 0.98) 100%);
+  border: 1px solid rgba(var(--gold-rgb), 0.25);
+}
+.office-map__route {
+  stroke: rgba(var(--gold-rgb), 0.75);
+  stroke-width: 2.5;
+  stroke-dasharray: 7 9;
+  stroke-linecap: round;
+}
+.office-map__marker { fill: var(--gold-hi); }
+.office-map__marker--us { fill: var(--gold); }
+.office-map__halo { fill: rgba(var(--gold-rgb), 0.16); }
+.office-map__legend {
+  margin: 18px 0 clamp(32px, 5vw, 56px);
   display: flex;
   gap: clamp(16px, 3vw, 32px);
   flex-wrap: wrap;
@@ -715,57 +778,44 @@ ul { margin: 0; padding: 0; list-style: none; }
 .split__body { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 40px; }
 .split__body .btn { margin-top: 8px; }
 
-/* Carrossel "onde estamos" — 3 cartões visíveis, setas laterais */
+/* Carrossel "onde estamos" — fotos passando automaticamente em looping
+   contínuo, coladas uma na outra, sem bordas arredondadas e sem setas. */
 .location-carousel {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  width: 100%;
+  overflow: hidden;
 }
-.location-carousel__viewport {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-}
-.location-carousel__viewport::-webkit-scrollbar { display: none; }
+.location-carousel__viewport { overflow: hidden; }
 .location-carousel__track {
   display: flex;
-  gap: 24px;
+  gap: 0;
   list-style: none;
   margin: 0;
-  padding: 4px 2px;
+  padding: 0;
+  width: max-content;
+  animation: location-carousel-scroll 34s linear infinite;
 }
+.location-carousel:hover .location-carousel__track { animation-play-state: paused; }
 .location-carousel__slide {
-  flex: 0 0 calc((100% - 48px) / 3);
-  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: clamp(200px, 22vw, 300px);
 }
 .location-carousel__slide img {
   width: 100%;
+  height: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 34px 60px -22px rgba(10, 17, 40, 0.4);
+  border-radius: 0;
+  box-shadow: none;
   display: block;
 }
-.location-carousel__arrow {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--hairline);
-  background: var(--white);
-  color: var(--heading);
-  box-shadow: 0 12px 24px -12px rgba(10, 17, 40, 0.35);
-  cursor: pointer;
-  transition: background-color .2s ease, transform .2s ease;
+@keyframes location-carousel-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
-.location-carousel__arrow svg { width: 20px; height: 20px; }
-.location-carousel__arrow:hover { background: var(--gold); color: var(--white); transform: scale(1.06); }
-.location-carousel__arrow:disabled { opacity: .35; cursor: default; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .location-carousel__track { animation: none; }
+}
 
 /* ---------- 9. Urgência: cards compactos ---------- */
 .mini-grid {
@@ -774,10 +824,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 16px;
   margin-bottom: var(--stack-gap);
 }
-/* Cards sobre a seção escura — superfície levemente mais clara + fio dourado */
+/* Cards sobre a seção escura — vidro fosco levitando, com brilho dourado nos cantos */
 .mini-card {
-  background: var(--navy);
-  border: 1px solid var(--hairline);
   border-radius: 14px;
   padding: 22px 20px;
   display: flex;
@@ -792,6 +840,60 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .mini-card h3 { font-family: var(--font-title); font-weight: 400; font-size: 21.8px; color: #fff; line-height: 1.2; }
 .mini-card p { font-size: 14.4px; line-height: 1.5; color: #9fb0c6; }
+
+/* ---------- 9b. Cartões vidro com brilho dourado (mini-cards e planos) ----------
+   Vidro fosco escuro, brilho suave nos cantos (estilo referência do usuário,
+   recolorido para dourado) e levitação sutil — sem sombra tradicional. */
+@keyframes card-levitate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.mini-card,
+.plan {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(155deg, rgba(20, 29, 46, 0.78) 0%, rgba(7, 13, 24, 0.92) 100%);
+  border: 1px solid rgba(var(--gold-rgb), 0.28);
+  box-shadow: none;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  animation: card-levitate 7s ease-in-out infinite;
+  transition: border-color 240ms ease, transform 240ms ease;
+}
+.mini-card::before,
+.mini-card::after,
+.plan::before,
+.plan::after {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  filter: blur(34px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.55;
+}
+.mini-card::before,
+.plan::before {
+  top: -20%;
+  left: -20%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+}
+.mini-card::after,
+.plan::after {
+  bottom: -20%;
+  right: -20%;
+  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.75) 0%, transparent 70%);
+}
+.mini-card:hover,
+.plan:hover {
+  animation-play-state: paused;
+  border-color: rgba(var(--gold-rgb), 0.65);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mini-card, .plan { animation: none; }
+}
 
 /* ---------- 10. Tabela comparativa (escura) ---------- */
 .compare {
@@ -909,36 +1011,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 .member__text { font-size: 16.1px; color: var(--gray-600); margin-top: 8px; }
 
 /* ---------- 12. Planos ---------- */
+/* Vidro + brilho dourado (ver bloco 9b); aqui só o layout próprio do card. */
 .plan {
-  position: relative;
-  background: var(--white);
-  border: 1px solid var(--gray-100);
   border-radius: var(--radius);
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: var(--shadow-card);
 }
 .card-grid .plan,
 .card-grid .plan.reveal {
-  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease, opacity 500ms ease;
-}
-.card-grid .plan:hover {
-  transform: translateY(-8px);
-  border-color: rgba(var(--gold-rgb), 0.7);
-  box-shadow: 0 44px 80px -34px rgba(0, 0, 0, 0.55);
+  transition: transform 240ms ease, border-color 240ms ease, opacity 500ms ease;
 }
 .plan:hover .plan__list svg { transform: scale(1.15); }
 .plan__list svg { transition: transform 240ms ease; }
-.plan--featured {
-  background: var(--navy);
-  border-color: rgba(var(--gold-rgb), 0.6);
-  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6);
-}
-.plan--featured .plan__name { color: #fff; }
-.plan--featured .plan__desc { color: #9fb0c6; }
-.plan--featured .plan__list li { color: #cbd5e1; }
+.plan--featured { border-color: rgba(var(--gold-rgb), 0.6); }
 .plan__badge {
   position: absolute;
   top: -13px;
@@ -952,11 +1039,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: var(--radius-pill);
+  z-index: 2;
 }
-.plan__name { font-family: var(--font-display); font-weight: 800; font-size: 23px; color: var(--navy); }
-.plan__desc { font-size: 15px; color: var(--gray-600); line-height: 1.5; }
+.plan__name { font-family: var(--font-display); font-weight: 800; font-size: 23px; color: #fff; }
+.plan__desc { font-size: 15px; color: #9fb0c6; line-height: 1.5; }
 .plan__list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.plan__list li { display: flex; gap: 10px; font-size: 15px; color: var(--gray-600); }
+.plan__list li { display: flex; gap: 10px; font-size: 15px; color: #cbd5e1; }
 .plan__list svg { width: 16px; height: 16px; color: var(--gold); flex: none; margin-top: 2px; }
 
 .plans-note {
