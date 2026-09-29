@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260929a" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260929b" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -100,220 +100,10 @@
       </div>
     </section>
 
-    <!-- ============ 2b. LINHA DO TEMPO ============ -->
-    <section class="section bg-white" id="jornada">
-      <div class="container">
-        <div class="section__head section__head--center reveal">
-          <span class="eyebrow eyebrow--pill">Como funciona</span>
-          <h2 class="h2">Da decisão à operação nos Estados Unidos, passo a passo</h2>
-          <p class="lead">
-            Acompanhe a jornada completa de abertura de empresa com a Start América,
-            do primeiro contato à rotina fiscal recorrente nos dois países.
-          </p>
-        </div>
+    <!-- Transição em blur entre o hero e a primeira seção -->
+    <div class="section-blur" aria-hidden="true"></div>
 
-        <div class="timeline" data-timeline>
-          <div class="timeline__line" aria-hidden="true"><span class="timeline__line-fill" data-timeline-fill></span></div>
-
-          <div class="timeline__step reveal">
-            <span class="timeline__dot">1</span>
-            <div class="timeline__content">
-              <span class="tag">Constituição</span>
-              <h3>Abertura da empresa nos Estados Unidos</h3>
-              <p>Cuidamos da constituição, do EIN e da documentação estadual — na maioria dos estados, sai em cerca de 5 dias úteis.</p>
-            </div>
-          </div>
-
-          <div class="timeline__step reveal">
-            <span class="timeline__dot">2</span>
-            <div class="timeline__content">
-              <span class="tag">Estrutura financeira</span>
-              <h3>Conta bancária</h3>
-              <p>Intermediamos a abertura de conta nos Estados Unidos.</p>
-            </div>
-          </div>
-
-          <div class="timeline__step reveal">
-            <span class="timeline__dot">3</span>
-            <div class="timeline__content">
-              <span class="tag">Compliance</span>
-              <h3>Contabilidade, Tax e compliance recorrentes</h3>
-              <p>Bookkeeping, Form 1120 e 5472, sales tax, annual report e BOI Report — sua empresa em dia todo mês, nos dois países.</p>
-            </div>
-          </div>
-
-          <div class="timeline__step reveal">
-            <span class="timeline__dot">4</span>
-            <div class="timeline__content">
-              <span class="tag">Operação contínua</span>
-              <h3>Suporte com Especialistas</h3>
-              <p>Acompanhamento contínuo em português, espanhol e inglês, com cobertura antimulta e estratégia tributária internacional sempre atualizada.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 2c. DIFERENCIAIS + EQUIPE ============ -->
-    <section class="photo-section section" id="diferenciais">
-      <img class="photo-section__bg" onerror="this.remove()" src="assets/img/diferenciais-bg.png" alt="" aria-hidden="true" width="1440" height="1100" loading="lazy" />
-      <div class="photo-section__overlay"></div>
-      <div class="container container--wide">
-        <div class="section__head section__head--center reveal">
-          <h2 class="h2">O que torna a Start América diferente</h2>
-        </div>
-        <div class="card-grid card-grid--3">
-          <article class="card card--icon reveal">
-            <span class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="8" y="8" width="8" height="8" rx="2"/></svg>
-            </span>
-            <h3 class="card__title">Estrutura completa<br>e especializada</h3>
-            <p class="card__text">Abertura de empresa, conta bancária, endereço virtual e suporte completo — tudo pronto para você operar de imediato.</p>
-          </article>
-          <article class="card card--icon reveal">
-            <span class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <h3 class="card__title">Cobertura contra<br>riscos e multas</h3>
-            <p class="card__text">Nossa consultoria carrega apólice de responsabilidade civil para que você tenha total tranquilidade operacional e jurídica.</p>
-          </article>
-          <article class="card card--icon reveal">
-            <span class="card__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </span>
-            <h3 class="card__title">Atendimento em português,<br>espanhol e inglês.</h3>
-            <p class="card__text">Nada de tickets misteriosos ou fusos horários incompatíveis. Atendimento em tempo real no fuso do Brasil.</p>
-          </article>
-        </div>
-
-        <div class="section__head section__head--center reveal" style="margin-top:clamp(48px, 7vw, 72px)">
-          <h3 class="h3">Por que <span class="text-gold">Start América</span>?</h3>
-          <p class="lead">Especialistas em abertura de empresas em território americano.</p>
-        </div>
-
-        <!-- Tabela (desktop/tablet) -->
-        <div class="compare reveal">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Comparação</th>
-                <th scope="col">Plataformas automatizadas</th>
-                <th scope="col" class="col-start">Start América</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Quem atende</th>
-                <td><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Chat e fila de espera</td>
-                <td class="col-start"><svg class="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Especialista em disposição fulltime</td>
-              </tr>
-              <tr>
-                <th scope="row">Estratégia tributária</th>
-                <td><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Não oferece</td>
-                <td class="col-start"><svg class="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Compara 6 jurisdições e desenha a estrutura</td>
-              </tr>
-              <tr>
-                <th scope="row">Erro em formulário do IRS</th>
-                <td><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Você paga a multa</td>
-                <td class="col-start"><svg class="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Cobertura antimulta e riscos fiscais</td>
-              </tr>
-              <tr>
-                <th scope="row">Seu contador no Brasil</th>
-                <td><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Vira concorrente</td>
-                <td class="col-start"><svg class="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Vira associado remunerado</td>
-              </tr>
-              <tr>
-                <th scope="row">Idiomas de atendimento</th>
-                <td><svg class="ic-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Inglês (fuso americano)</td>
-                <td class="col-start"><svg class="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Português, Espanhol e Inglês (Fuso Brasileiro)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Comparação por tópicos (mobile) -->
-        <div class="compare-cards" aria-hidden="false">
-          <div class="compare-item"><h3>Quem atende</h3><div class="pair"><div><small>Plataformas</small>Chat e fila de espera</div><div class="is-start"><small>Start América</small>Especialista em disposição fulltime</div></div></div>
-          <div class="compare-item"><h3>Estratégia tributária</h3><div class="pair"><div><small>Plataformas</small>Não oferece</div><div class="is-start"><small>Start América</small>Compara 6 jurisdições e desenha a estrutura</div></div></div>
-          <div class="compare-item"><h3>Erro em formulário do IRS</h3><div class="pair"><div><small>Plataformas</small>Você paga a multa</div><div class="is-start"><small>Start América</small>Cobertura antimulta e riscos fiscais</div></div></div>
-          <div class="compare-item"><h3>Seu contador no Brasil</h3><div class="pair"><div><small>Plataformas</small>Vira concorrente</div><div class="is-start"><small>Start América</small>Vira associado remunerado</div></div></div>
-          <div class="compare-item"><h3>Idiomas de atendimento</h3><div class="pair"><div><small>Plataformas</small>Inglês (fuso americano)</div><div class="is-start"><small>Start América</small>Português, Espanhol e Inglês (Fuso Brasileiro)</div></div></div>
-        </div>
-
-        <div class="section-cta">
-          <a class="btn btn--gold" href="#contato">Converse com um dos nossos especialistas
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-
-        <div class="team-block" id="equipe">
-          <div class="team-block__msg reveal">
-            <h2 class="h2">Abra sua empresa nos Estados Unidos com quem entende os dois lados.</h2>
-            <p class="lead" style="color:#c8d2e2">
-              Você não fala com um chat robotizado. Fala direto com o time de especialistas
-              responsável pela sua estrutura.
-            </p>
-          </div>
-          <div class="member reveal">
-            <img class="member__avatar" src="assets/img/Frame.png" alt="Fernanda Silveira" width="96" height="96" loading="lazy" />
-            <div>
-              <p class="member__name">Fernanda Silveira</p>
-              <p class="member__role">Especialista em Incorporação</p>
-              <p class="member__text">Líder técnica responsável pelo trâmite ágil de EIN e documentação estadual.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 3. ESCRITÓRIO NOS ESTADOS UNIDOS ============ -->
-    <section class="section bg-white" id="quem-somos">
-      <div class="container">
-        <div class="section__head section__head--center reveal">
-          <span class="eyebrow eyebrow--pill">Onde estamos</span>
-          <h2 class="h2">Escritório nativo nos Estados Unidos</h2>
-          <p class="lead">
-            Presença física em Orlando, na Flórida, com a ponte direta até o nosso time em
-            São Paulo — sem fuso incompatível, sem intermediário.
-          </p>
-        </div>
-
-        <div class="office-map reveal">
-          <div class="office-map__globe" id="office-globe" aria-hidden="true"></div>
-          <ul class="office-map__legend">
-            <li><span class="office-map__dot office-map__dot--us"></span>Orlando, Estados Unidos</li>
-            <li><span class="office-map__dot office-map__dot--br"></span>São Paulo, Brasil</li>
-          </ul>
-        </div>
-
-        <div class="location-carousel reveal" data-carousel data-carousel-loop data-carousel-autoplay="5200">
-          <button class="location-carousel__arrow location-carousel__arrow--prev" type="button" aria-label="Imagem anterior" data-carousel-prev>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-          </button>
-          <div class="location-carousel__viewport" data-carousel-viewport>
-            <ul class="location-carousel__track" data-carousel-track>
-              <li class="location-carousel__slide"><img src="assets/img/card-1.png" alt="Sala de reunião com vista panorâmica da cidade" width="600" height="450" loading="lazy" /></li>
-              <li class="location-carousel__slide"><img src="assets/img/sobre-card-2.jpg" alt="Átrio interno de um centro empresarial moderno" width="600" height="450" loading="lazy" /></li>
-              <li class="location-carousel__slide"><img src="assets/img/sobre-card-3.jpg" alt="Fachada de complexo de escritórios internacional ao entardecer" width="600" height="450" loading="lazy" /></li>
-              <li class="location-carousel__slide"><img src="assets/img/landmark-center-patio.jpg" alt="Pátio externo do complexo com áreas de convivência" width="600" height="450" loading="lazy" /></li>
-              <li class="location-carousel__slide"><img src="assets/img/landmark-center-fachada.jpg" alt="Fachada de vidro do edifício com jardim ao entardecer" width="600" height="450" loading="lazy" /></li>
-              <li class="location-carousel__slide"><img src="assets/img/landmark-center-lago.jpg" alt="Torres gêmeas do complexo refletidas no lago" width="600" height="450" loading="lazy" /></li>            </ul>
-          </div>
-          <button class="location-carousel__arrow location-carousel__arrow--next" type="button" aria-label="Próxima imagem" data-carousel-next>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-          </button>
-        </div>
-
-        <div class="section-cta">
-          <a class="btn btn--gold" href="https://www.highwoods.com/find-your-space/detail/landmark-center-two" target="_blank" rel="noopener">
-            Conheça onde estamos
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 4. O QUE FAZEMOS POR VOCÊ (pilha com paralaxe) ============ -->
+    <!-- ============ 2b. O QUE FAZEMOS POR VOCÊ (pilha com paralaxe) ============ -->
     <section class="section bg-white" id="servicos">
       <div class="container">
         <div class="section__head section__head--center reveal">
@@ -367,6 +157,53 @@
         <div class="section-cta" style="margin-top:0">
           <a class="btn btn--gold" href="#contato">
             Falar com especialista
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. ESCRITÓRIO NOS ESTADOS UNIDOS ============ -->
+    <section class="section bg-white" id="quem-somos">
+      <div class="container">
+        <div class="section__head section__head--center reveal">
+          <span class="eyebrow eyebrow--pill">Onde estamos</span>
+          <h2 class="h2">Escritório nativo nos Estados Unidos</h2>
+          <p class="lead">
+            Presença física em Orlando, na Flórida, com a ponte direta até o nosso time em
+            São Paulo — sem fuso incompatível, sem intermediário.
+          </p>
+        </div>
+
+        <div class="office-map reveal">
+          <div class="office-map__globe" id="office-globe" aria-hidden="true"></div>
+          <ul class="office-map__legend">
+            <li><span class="office-map__dot office-map__dot--us"></span>Orlando, Estados Unidos</li>
+            <li><span class="office-map__dot office-map__dot--br"></span>São Paulo, Brasil</li>
+          </ul>
+        </div>
+
+        <div class="location-carousel reveal" data-carousel data-carousel-loop data-carousel-autoplay="5200">
+          <button class="location-carousel__arrow location-carousel__arrow--prev" type="button" aria-label="Imagem anterior" data-carousel-prev>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="location-carousel__viewport" data-carousel-viewport>
+            <ul class="location-carousel__track" data-carousel-track>
+              <li class="location-carousel__slide"><img src="assets/img/card-1.png" alt="Sala de reunião com vista panorâmica da cidade" width="600" height="450" loading="lazy" /></li>
+              <li class="location-carousel__slide"><img src="assets/img/sobre-card-2.jpg" alt="Átrio interno de um centro empresarial moderno" width="600" height="450" loading="lazy" /></li>
+              <li class="location-carousel__slide"><img src="assets/img/sobre-card-3.jpg" alt="Fachada de complexo de escritórios internacional ao entardecer" width="600" height="450" loading="lazy" /></li>
+              <li class="location-carousel__slide"><img src="assets/img/landmark-center-patio.jpg" alt="Pátio externo do complexo com áreas de convivência" width="600" height="450" loading="lazy" /></li>
+              <li class="location-carousel__slide"><img src="assets/img/landmark-center-fachada.jpg" alt="Fachada de vidro do edifício com jardim ao entardecer" width="600" height="450" loading="lazy" /></li>
+              <li class="location-carousel__slide"><img src="assets/img/landmark-center-lago.jpg" alt="Torres gêmeas do complexo refletidas no lago" width="600" height="450" loading="lazy" /></li>            </ul>
+          </div>
+          <button class="location-carousel__arrow location-carousel__arrow--next" type="button" aria-label="Próxima imagem" data-carousel-next>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn--gold" href="https://www.highwoods.com/find-your-space/detail/landmark-center-two" target="_blank" rel="noopener">
+            Conheça onde estamos
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -434,7 +271,7 @@
                 <span class="tax-calc__label">Regime Tributário</span>
                 <div class="tax-calc__toggle" role="group" aria-label="Regime tributário">
                   <button type="button" class="tax-calc__toggle-btn is-active" data-regime="real">Lucro Real</button>
-                  <button type="button" class="tax-calc__toggle-btn" data-regime="presumido">Lucro Presumido</button>
+                  <button type="button" class="tax-calc__toggle-btn" data-regime="simples">Simples Nacional</button>
                 </div>
               </div>
 
@@ -490,51 +327,6 @@
               </button>
             </div>
           </div>
-        </div>
-
-        <div class="tax-calc__context reveal">
-          <div class="tax-calc__context-head">
-            <h3 class="h3">Por que esse impacto acontece</h3>
-            <p class="lead">
-              O Brasil tem uma das cargas tributárias mais complexas do mundo, com dezenas de
-              tributos federais, estaduais e municipais cobrados sobre renda, consumo e
-              patrimônio. A Reforma Tributária (CBS + IBS) está reorganizando essa cobrança
-              sobre bens e serviços, e o split payment passa a reter parte do imposto já no
-              momento do pagamento — mudando o fluxo de caixa de quem vende no Brasil. O
-              Impostômetro, projeto do IBPT, acompanha essa arrecadação em tempo real e usa a
-              métrica "Dias Trabalhados para Pagar Impostos" para mostrar o peso disso no dia a
-              dia de quem empreende no país.
-            </p>
-          </div>
-
-          <div class="tax-calc__taxes">
-            <p class="tax-calc__taxes-label">Principais tributos aplicados no Brasil</p>
-            <div class="tax-calc__tax-grid">
-              <div class="tax-calc__tax-group">
-                <span class="tag">Federais</span>
-                <p>IRPJ, CSLL, PIS, COFINS, IPI, IOF</p>
-              </div>
-              <div class="tax-calc__tax-group">
-                <span class="tag">Estaduais</span>
-                <p>ICMS, IPVA, ITCMD</p>
-              </div>
-              <div class="tax-calc__tax-group">
-                <span class="tag">Municipais</span>
-                <p>ISS, IPTU, ITBI</p>
-              </div>
-              <div class="tax-calc__tax-group">
-                <span class="tag">Reforma tributária</span>
-                <p>CBS, IBS, Split Payment</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="tax-calc__sources">
-            Fontes:
-            <a href="https://impostometro.org/estados/" target="_blank" rel="noopener">Impostômetro — arrecadação por estado</a>,
-            <a href="https://impostometro.com.br/" target="_blank" rel="noopener">Impostômetro Brasil</a> e
-            <a href="https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/tributos" target="_blank" rel="noopener">Receita Federal — Orientação Tributária</a>.
-          </p>
         </div>
       </div>
     </section>
@@ -598,63 +390,6 @@
           <a class="btn btn--gold" href="#contato">Converse com um dos nossos especialistas
             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 9. START AMÉRICA NA MÍDIA ============ -->
-    <section class="section media-section" id="midia">
-      <div class="container container--wide">
-        <div class="section__head reveal">
-          <span class="eyebrow eyebrow--pill">Start América na mídia</span>
-          <h2 class="h2">O que o mercado está falando sobre a Start América</h2>
-        </div>
-        <div class="card-grid card-grid--3" data-snap-mobile>
-          <article class="media-card reveal">
-            <div class="media-card__head">
-              <span class="media-card__logo">
-                <svg class="media-card__doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
-                <img src="assets/img/logo-exame.webp" alt="Exame" width="76" height="22" loading="lazy" />
-              </span>
-              <span class="media-card__cat">Exclusivo</span>
-            </div>
-            <p class="media-card__title">Start América recebe smart money de empresa de tecnologia especializada em Saas para contabilidade.</p>
-            <p class="media-card__excerpt">Com foco na transição tributária e na busca por segurança jurídica, a nova estrutura simplifica a abertura e manutenção de empresas nos EUA.</p>
-            <div class="media-card__meta">
-              <span class="media-card__date">14 Out 2026</span>
-              <a class="link-arrow" href="#">Ler reportagem <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </article>
-          <article class="media-card reveal">
-            <div class="media-card__head">
-              <span class="media-card__logo">
-                <svg class="media-card__doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
-                <img src="assets/img/logo-valor.png" alt="Valor Econômico" width="96" height="22" loading="lazy" />
-              </span>
-              <span class="media-card__cat">Negócios</span>
-            </div>
-            <p class="media-card__title">Empresa Start América dispara na corrida para abrir empresas de brasileiros nos Estados Unidos</p>
-            <p class="media-card__excerpt">Iniciativa pioneira visa blindar o caixa de exportadores de serviços contra o ‘split payment’ e as incertezas da reforma tributária nacional.</p>
-            <div class="media-card__meta">
-              <span class="media-card__date">08 Set 2026</span>
-              <a class="link-arrow" href="#">Ler reportagem <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </article>
-          <article class="media-card reveal">
-            <div class="media-card__head">
-              <span class="media-card__logo">
-                <svg class="media-card__doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
-                <img src="assets/img/logo-infomoney.png" alt="InfoMoney" width="92" height="22" loading="lazy" />
-              </span>
-              <span class="media-card__cat">Mercado</span>
-            </div>
-            <p class="media-card__title">Start América capta rodada seed e projeta crescimento.</p>
-            <p class="media-card__excerpt">Empresa com plataforma automatizada e atendimento com especialistas focada em facilitação na abertura de empresas para brasileiros nos Estados Unidos…</p>
-            <div class="media-card__meta">
-              <span class="media-card__date">25 Ago 2026</span>
-              <a class="link-arrow" href="#">Ler reportagem <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -804,8 +539,6 @@
           <button class="footer-col__toggle" type="button" aria-expanded="false">Empresa <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
           <h4>Empresa</h4>
           <ul>
-            <li><a href="#equipe">Nosso time</a></li>
-            <li><a href="#midia">Na mídia</a></li>
             <li><a href="seja-parceiro.html#contadores">Para contadores</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
@@ -859,11 +592,11 @@
     </div>
   </div>
 
-  <script src="assets/js/i18n.js?v=20260929a" defer></script>
-  <script src="assets/js/main.js?v=20260929a" defer></script>
-  <script src="assets/js/button-glow.js?v=20260929a" defer></script>
+  <script src="assets/js/i18n.js?v=20260929b" defer></script>
+  <script src="assets/js/main.js?v=20260929b" defer></script>
+  <script src="assets/js/button-glow.js?v=20260929b" defer></script>
   <script type="module">
-    import { initGlobe } from './assets/js/globe.js?v=20260929a';
+    import { initGlobe } from './assets/js/globe.js?v=20260929b';
 
     var heroGlobeEl = document.getElementById('hero-globe');
     if (heroGlobeEl) {

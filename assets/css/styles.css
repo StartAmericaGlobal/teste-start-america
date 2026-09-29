@@ -497,6 +497,24 @@ ul { margin: 0; padding: 0; list-style: none; }
   }
 }
 
+/* Transição em blur entre o hero e a primeira seção — "derrete" a borda
+   escura do hero na seção clara seguinte, com o desfoque crescendo em
+   direção à base. */
+.section-blur {
+  position: relative;
+  z-index: 5;
+  height: clamp(70px, 9vw, 140px);
+  margin-top: clamp(-70px, -9vw, -140px);
+  pointer-events: none;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%, #000 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-blur { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+}
+
 /* Mockup do simulador — cartão branco */
 .simulator {
   background: var(--white);

@@ -472,11 +472,11 @@
         var segmento = segmentoSel.value;
         var profile = segmentProfiles[segmento] || segmentProfiles.industria;
 
-        // Lucro Presumido tem menos margem para aproveitar créditos não cumulativos
+        // Simples Nacional tem menos margem para aproveitar créditos não cumulativos
         // de IBS/CBS do que o Lucro Real, então a carga sobe e o crédito encolhe.
-        var isPresumido = currentRegime === 'presumido';
-        var cargaBR = profile.cargaBR + (isPresumido ? 3 : 0);
-        var creditos = profile.creditos * (isPresumido ? 0.4 : 1);
+        var isSimples = currentRegime === 'simples';
+        var cargaBR = profile.cargaBR + (isSimples ? 3 : 0);
+        var creditos = profile.creditos * (isSimples ? 0.4 : 1);
         var otimMed = (profile.otimMin + profile.otimMax) / 2;
 
         if (resultFaturamento) resultFaturamento.textContent = formatBRCurrency(faturamento) + ',00';
