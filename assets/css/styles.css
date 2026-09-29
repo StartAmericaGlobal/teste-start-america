@@ -603,11 +603,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stack__panel {
   position: sticky;
   top: 0;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   padding-block: clamp(4px, 0.75vh, 8px);
   overflow: hidden;
+}
+/* Um pouco mais de respiro embaixo dos dois primeiros blocos, que ficaram
+   apertados demais colados no próximo painel. */
+.stack__panel:nth-child(1),
+.stack__panel:nth-child(2) {
+  padding-bottom: clamp(28px, 4vw, 48px);
 }
 .stack__panel--light { background: var(--white); color: var(--gray-600); }
 .stack__panel--dark { background: var(--navy-deep); color: var(--text); }
@@ -627,11 +632,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
 }
 .stack__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-@media (min-width: 901px) {
-  /* Imagem alta o bastante para o painel quase preencher a tela inteira,
-     reduzindo em ~85% o respiro que sobrava acima/abaixo do conteúdo. */
-  .stack__media { aspect-ratio: auto; height: min(93vh, 840px); }
-}
 @media (max-width: 900px) {
   .stack__grid { grid-template-columns: 1fr; gap: 28px; }
   .stack__panel:nth-child(even) .stack__media { order: 0; }
@@ -655,10 +655,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stack__panel--dark .stack__title { color: #fff; }
 .stack__text { font-size: clamp(16.1px, 1.6vw, 18.4px); line-height: 1.65; color: var(--gray-600); }
 .stack__panel--dark .stack__text { color: #b4c0d0; }
-
-@media (max-width: 767px) {
-  .stack__panel { min-height: 100svh; }
-}
 
 /* ---------- 7. Grid de cards ---------- */
 .card-grid {
