@@ -826,82 +826,114 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 16px;
   margin-bottom: var(--stack-gap);
 }
-/* Cards sobre a seção escura — vidro fosco levitando, com brilho dourado nos cantos */
-.mini-card {
-  border-radius: 0;
-  padding: 22px 20px;
+
+/* ---------- 9b. Cartão "tile": painel escuro com brilho + corpo claro ----------
+   Estilo adaptado da referência de níveis de cartão (XP), recolorido para a
+   identidade dourada da Start América. Usado por .mini-card, .plan e .tier. */
+.mini-card,
+.plan,
+.tier {
+  position: relative;
+  background: var(--white-soft);
+  border: 1px solid var(--gray-100);
+  border-radius: 20px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-.mini-card .tag {
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-}
-.mini-card h3 { font-family: var(--font-title); font-weight: 400; font-size: 21.8px; color: #fff; line-height: 1.2; }
-.mini-card p { font-size: 14.4px; line-height: 1.5; color: #9fb0c6; }
-
-/* ---------- 9b. Cartões vidro com brilho dourado (mini-cards e planos) ----------
-   Vidro fosco escuro, cantos retos, brilho concentrado nos cantos (estilo
-   referência do usuário, recolorido para dourado) e levitação sutil —
-   sem sombra tradicional. */
-@keyframes card-levitate {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
-}
-.mini-card,
-.plan {
-  position: relative;
-  isolation: isolate;
-  border-radius: 0;
-  background: linear-gradient(155deg, rgba(20, 29, 46, 0.8) 0%, rgba(7, 13, 24, 0.94) 100%);
-  border: 1px solid rgba(var(--gold-rgb), 0.28);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  animation: card-levitate 7s ease-in-out infinite;
-  transition: border-color 240ms ease, transform 240ms ease;
-}
-.mini-card::before,
-.mini-card::after,
-.plan::before,
-.plan::after {
-  content: "";
-  position: absolute;
-  width: 48%;
-  height: 48%;
-  pointer-events: none;
-  z-index: -1;
-  mix-blend-mode: plus-lighter;
-}
-.mini-card::before,
-.plan::before {
-  top: -12%;
-  left: -12%;
-  background:
-    radial-gradient(circle at 32% 32%, rgba(255, 255, 255, 0.95) 0%, transparent 24%),
-    radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 68%);
-  filter: blur(16px);
-}
-.mini-card::after,
-.plan::after {
-  bottom: -12%;
-  right: -12%;
-  background:
-    radial-gradient(circle at 68% 68%, rgba(226, 201, 138, 1) 0%, transparent 24%),
-    radial-gradient(circle, rgba(var(--gold-rgb), 0.9) 0%, transparent 68%);
-  filter: blur(16px);
+  gap: 0;
+  box-shadow: 0 30px 60px -40px rgba(10, 17, 40, 0.4);
+  transition: transform 240ms ease, box-shadow 240ms ease;
 }
 .mini-card:hover,
-.plan:hover {
-  animation-play-state: paused;
-  border-color: rgba(var(--gold-rgb), 0.7);
+.plan:hover,
+.tier:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 70px -34px rgba(10, 17, 40, 0.45);
 }
-@media (prefers-reduced-motion: reduce) {
-  .mini-card, .plan { animation: none; }
+
+/* Painel escuro no topo do cartão, com o brilho dourado "gloss" no canto —
+   aproxima visualmente do cartão de referência sem depender de imagem. */
+.tile-visual {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 18px 20px;
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: linear-gradient(140deg, #131b2c 0%, #05070d 100%);
 }
+.tile-visual::before,
+.tile-visual::after {
+  content: "";
+  position: absolute;
+  right: -28%;
+  top: -60%;
+  width: 125%;
+  height: 220%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.tile-visual::before {
+  background: conic-gradient(from 205deg at 50% 50%,
+    transparent 0deg,
+    rgba(226, 201, 138, 0.9) 50deg,
+    rgba(198, 162, 83, 0.3) 115deg,
+    transparent 185deg,
+    transparent 360deg);
+  filter: blur(3px);
+  opacity: 0.55;
+}
+.tile-visual::after {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+  right: -10%;
+}
+.tile-visual__name {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20.7px;
+  color: #fff;
+  line-height: 1.15;
+}
+.tile-visual__sub {
+  position: relative;
+  z-index: 1;
+  font-size: 12.6px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.4;
+}
+.tile-visual--2::before { opacity: 0.7; }
+.tile-visual--3::before { opacity: 0.85; }
+.tile-visual--4 { background: linear-gradient(140deg, #1b1526 0%, #05070d 100%); }
+.tile-visual--4::before { opacity: 1; filter: blur(2px) brightness(1.15); }
+
+.tile-intro {
+  margin: 16px 6px 10px;
+  font-size: 13.8px;
+  line-height: 1.5;
+  color: var(--gray-600);
+}
+.mini-card .tile-intro { margin-bottom: 4px; }
+
+.tile-list { display: flex; flex-direction: column; gap: 11px; padding: 0 6px 10px; }
+.tile-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.4px; line-height: 1.45; color: var(--gray-600); }
+.tile-list__check {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.tile-list__check svg { width: 11px; height: 11px; color: var(--navy); }
 
 /* ---------- 10. Tabela comparativa (escura) ---------- */
 .compare {
@@ -1019,21 +1051,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .member__text { font-size: 16.1px; color: var(--gray-600); margin-top: 8px; }
 
 /* ---------- 12. Planos ---------- */
-/* Vidro + brilho dourado (ver bloco 9b); aqui só o layout próprio do card. */
-.plan {
-  border-radius: 0;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.card-grid .plan,
-.card-grid .plan.reveal {
-  transition: transform 240ms ease, border-color 240ms ease, opacity 500ms ease;
-}
-.plan:hover .plan__list svg { transform: scale(1.15); }
-.plan__list svg { transition: transform 240ms ease; }
-.plan--featured { border-color: rgba(var(--gold-rgb), 0.6); }
+/* Visual "tile" + corpo claro (ver bloco 9b); aqui só o que é específico do plano. */
+.plan--featured .tile-visual { box-shadow: 0 0 0 2px rgba(var(--gold-rgb), 0.55); }
 .plan__badge {
   position: absolute;
   top: -13px;
@@ -1049,11 +1068,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: var(--radius-pill);
   z-index: 2;
 }
-.plan__name { font-family: var(--font-display); font-weight: 800; font-size: 23px; color: #fff; }
-.plan__desc { font-size: 15px; color: #9fb0c6; line-height: 1.5; }
-.plan__list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.plan__list li { display: flex; gap: 10px; font-size: 15px; color: #cbd5e1; }
-.plan__list svg { width: 16px; height: 16px; color: var(--gold); flex: none; margin-top: 2px; }
 
 .plans-note {
   margin-top: 32px;
@@ -1182,59 +1196,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
-.tier {
-  background: var(--navy);
-  border: 1px solid var(--hairline);
-  border-radius: 16px;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 30px 60px -34px rgba(10, 17, 40, 0.5);
-}
-.tier-grid .tier,
-.tier-grid .tier.reveal {
-  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease, opacity 500ms ease;
-}
-.tier-grid .tier:hover {
-  transform: translateY(-8px);
-  border-color: rgba(var(--gold-rgb), 0.6);
-  box-shadow: 0 46px 80px -30px rgba(0, 0, 0, 0.6);
-}
-.tier:hover .tier__pct { transform: scale(1.04); }
-.tier__pct { transition: transform 240ms ease; transform-origin: left center; }
-.tier__name {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 17.2px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.tier__pct {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(34.5px, 4.6vw, 46px);
-  color: var(--gold);
-  line-height: 1.05;
-  margin: 4px 0 2px;
-}
-.tier__pct--text { font-size: clamp(25.3px, 3vw, 32.2px); }
-.tier__cycle { font-size: 13.8px; color: #9fb0c6; }
-.tier__role {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 16.1px;
-  color: #fff;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 12px;
-}
-.tier__list { display: flex; flex-direction: column; gap: 10px; }
-.tier__list li { display: flex; gap: 10px; font-size: 15px; line-height: 1.45; color: #cbd5e1; }
-.tier__list svg { width: 15px; height: 15px; color: var(--gold); flex: none; margin-top: 2px; }
+/* Visual "tile" + corpo claro (ver bloco 9b); aqui só o que é específico do nível. */
 /* CTA dentro do próprio card — some no desktop (usa-se a .tier-cta-row alinhada por baixo do grid) */
-.tier__cta { display: none; width: 100%; margin-top: 20px; }
+.tier__cta { display: none; width: 100%; margin-top: 16px; }
 
 .tier-cta-row {
   display: grid;

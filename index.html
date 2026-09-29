@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260929i" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260929j" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -237,29 +237,39 @@
 
         <div class="mini-grid" data-snap-mobile>
           <div class="mini-card reveal">
-            <span class="tag">IRRF 10%</span>
-            <h3>Tributação sobre a Renda</h3>
-            <p>Arrecadação pesada sobre lucros que poderiam ser reinvestidos sem imposto retido.</p>
+            <div class="tile-visual">
+              <span class="tile-visual__name">Tributação sobre a Renda</span>
+              <span class="tile-visual__sub">IRRF 10%</span>
+            </div>
+            <p class="tile-intro">Arrecadação pesada sobre lucros que poderiam ser reinvestidos sem imposto retido.</p>
           </div>
           <div class="mini-card reveal">
-            <span class="tag">Reforma</span>
-            <h3>CBS + IBS</h3>
-            <p>Transição tributária nacional que trará carga estimada em até 30% em serviços.</p>
+            <div class="tile-visual">
+              <span class="tile-visual__name">CBS + IBS</span>
+              <span class="tile-visual__sub">Reforma tributária</span>
+            </div>
+            <p class="tile-intro">Transição tributária nacional que trará carga estimada em até 30% em serviços.</p>
           </div>
           <div class="mini-card reveal">
-            <span class="tag">Fluxo de Caixa</span>
-            <h3>Split Payment</h3>
-            <p>Retenção imediata nas transações comerciais que drena o fluxo de caixa.</p>
+            <div class="tile-visual">
+              <span class="tile-visual__name">Split Payment</span>
+              <span class="tile-visual__sub">Fluxo de caixa</span>
+            </div>
+            <p class="tile-intro">Retenção imediata nas transações comerciais que drena o fluxo de caixa.</p>
           </div>
           <div class="mini-card reveal">
-            <span class="tag">Compliance</span>
-            <h3>Insegurança Jurídica</h3>
-            <p>Súbitas alterações em regras de incentivos locais gerando alta vulnerabilidade.</p>
+            <div class="tile-visual">
+              <span class="tile-visual__name">Insegurança Jurídica</span>
+              <span class="tile-visual__sub">Compliance</span>
+            </div>
+            <p class="tile-intro">Súbitas alterações em regras de incentivos locais gerando alta vulnerabilidade.</p>
           </div>
           <div class="mini-card reveal">
-            <span class="tag">Financeiro</span>
-            <h3>Margem Comprimida</h3>
-            <p>Aumento dos custos operacionais no Brasil sem repasse viável aos clientes finais.</p>
+            <div class="tile-visual">
+              <span class="tile-visual__name">Margem Comprimida</span>
+              <span class="tile-visual__sub">Financeiro</span>
+            </div>
+            <p class="tile-intro">Aumento dos custos operacionais no Brasil sem repasse viável aos clientes finais.</p>
           </div>
         </div>
 
@@ -354,43 +364,53 @@
 
         <div class="card-grid" data-snap-mobile>
           <article class="plan reveal">
-            <p class="plan__name">Essencial</p>
-            <p class="plan__desc">Para profissionais liberais e freelancers iniciando a exportação de serviços.</p>
-            <ul class="plan__list">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Abertura inclusa no anual</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Contabilidade e obrigações do ano</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Endereço fiscal e portal</li>
+            <div class="tile-visual tile-visual--1">
+              <span class="tile-visual__name">Essencial</span>
+              <span class="tile-visual__sub">Para liberais e freelancers exportando serviços</span>
+            </div>
+            <p class="tile-intro">Conheça os benefícios do Essencial:</p>
+            <ul class="tile-list">
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Abertura inclusa no anual</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Contabilidade e obrigações do ano</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Endereço fiscal e portal</li>
             </ul>
           </article>
 
           <article class="plan reveal">
-            <p class="plan__name">Profissional</p>
-            <p class="plan__desc">O plano mais equilibrado com suporte dedicado de alto nível.</p>
-            <ul class="plan__list">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Tudo do Essencial</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Bookkeeping mensal e sales tax</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Especialista dedicado</li>
+            <div class="tile-visual tile-visual--2">
+              <span class="tile-visual__name">Profissional</span>
+              <span class="tile-visual__sub">Suporte dedicado de alto nível</span>
+            </div>
+            <p class="tile-intro">Tudo do Essencial e mais:</p>
+            <ul class="tile-list">
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Bookkeeping mensal e sales tax</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Especialista dedicado</li>
             </ul>
           </article>
 
           <article class="plan plan--featured reveal">
             <span class="plan__badge">Recomendado</span>
-            <p class="plan__name">Prime</p>
-            <p class="plan__desc">Para empresas com faturamento estruturado e múltiplos sócios.</p>
-            <ul class="plan__list">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Tudo do Profissional</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Estratégia tributária trimestral</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Dolarização e retiradas</li>
+            <div class="tile-visual tile-visual--3">
+              <span class="tile-visual__name">Prime</span>
+              <span class="tile-visual__sub">Faturamento estruturado, múltiplos sócios</span>
+            </div>
+            <p class="tile-intro">Tudo do Profissional e mais:</p>
+            <ul class="tile-list">
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Estratégia tributária trimestral</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Dolarização e retiradas</li>
             </ul>
           </article>
 
           <article class="plan reveal">
-            <p class="plan__name">Corporate</p>
-            <p class="plan__desc">Solução sob medida para Holdings ou operações de e-commerce complexas.</p>
-            <ul class="plan__list">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Múltiplas empresas</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Folha e consolidação</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Suporte a auditoria</li>
+            <div class="tile-visual tile-visual--4">
+              <span class="tile-visual__name">Corporate</span>
+              <span class="tile-visual__sub">Holdings e e-commerce complexo</span>
+            </div>
+            <p class="tile-intro">Solução sob medida com:</p>
+            <ul class="tile-list">
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Múltiplas empresas</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Folha e consolidação</li>
+              <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Suporte a auditoria</li>
             </ul>
           </article>
         </div>
@@ -606,12 +626,12 @@
     </div>
   </div>
 
-  <script src="assets/js/i18n.js?v=20260929i" defer></script>
-  <script src="assets/js/main.js?v=20260929i" defer></script>
-  <script src="assets/js/button-glow.js?v=20260929i" defer></script>
+  <script src="assets/js/i18n.js?v=20260929j" defer></script>
+  <script src="assets/js/main.js?v=20260929j" defer></script>
+  <script src="assets/js/button-glow.js?v=20260929j" defer></script>
   <script type="module">
-    import { initGlobe } from './assets/js/globe.js?v=20260929i';
-    import { initFlatMap } from './assets/js/office-map.js?v=20260929i';
+    import { initGlobe } from './assets/js/globe.js?v=20260929j';
+    import { initFlatMap } from './assets/js/office-map.js?v=20260929j';
 
     var heroGlobeEl = document.getElementById('hero-globe');
     if (heroGlobeEl) {
