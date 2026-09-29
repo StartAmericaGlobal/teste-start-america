@@ -291,10 +291,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-glow:has(.btn--block) { display: block; width: 100%; }
 .btn-glow .btn { position: relative; z-index: 1; }
 .btn-glow__core {
+  /* Altura fixa em px — nunca % nem inset com top+bottom: qualquer uma
+     das duas força a altura do .btn-glow (inline-block, altura "auto")
+     a depender de si mesma, e o wrapper infla para o dobro do botão,
+     deslocando todo o brilho para cima. */
   position: absolute;
   left: 50%; top: 50%;
   width: 66%;
-  height: 150%;
+  height: 68px;
   transform: translate(-50%, -50%);
   border-radius: var(--radius-pill);
   background: radial-gradient(circle, rgba(var(--gold-rgb), 0.6) 0%, transparent 72%);
@@ -308,9 +312,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: absolute;
   left: 50%; top: 50%;
   width: calc(100% + 14px);
-  height: calc(100% + 14px);
-  border-radius: var(--radius-pill);
+  height: 42px;
   transform: translate(-50%, -50%);
+  border-radius: var(--radius-pill);
   opacity: 0;
   pointer-events: none;
   will-change: opacity;
@@ -1252,7 +1256,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   line-height: 1.12;
   color: #fff;
 }
-.partner-banner__body .btn { margin-top: 28px; }
+/* Margem no wrapper (.btn-glow) OU no .btn direto (sem JS) — nunca nos
+   dois: senão o .btn interno ganha um vão vazio acima dele dentro do
+   wrapper, e o brilho (centralizado no wrapper) flutua nesse vão. */
+.partner-banner__body .btn-glow,
+.partner-banner__body > .btn { margin-top: 28px; }
 .partner-banner__seal { display: flex; justify-content: center; }
 .partner-banner__seal img { width: clamp(180px, 22vw, 280px); height: auto; }
 
