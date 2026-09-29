@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260929c" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260929d" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -179,7 +179,7 @@
     </section>
 
     <!-- ============ 3. ESCRITÓRIO NOS ESTADOS UNIDOS ============ -->
-    <section class="section bg-white" id="quem-somos">
+    <section class="section bg-navy-deep" id="quem-somos">
       <div class="container">
         <div class="section__head section__head--center reveal">
           <span class="eyebrow eyebrow--pill">Onde estamos</span>
@@ -190,20 +190,26 @@
           </p>
         </div>
 
-        <div class="office-map office-map--static reveal">
-          <svg class="office-map__svg" viewBox="0 0 600 300" role="img" aria-label="Rota entre o escritório em Orlando e o time em São Paulo">
-            <defs>
-              <pattern id="office-map-dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor" opacity="0.16" />
-              </pattern>
-            </defs>
-            <rect x="0" y="0" width="600" height="300" rx="24" fill="url(#office-map-dots)" />
-            <path class="office-map__route" d="M130,222 C230,64 380,64 472,168" fill="none" />
-            <circle class="office-map__halo office-map__halo--us" cx="130" cy="222" r="20" />
-            <circle class="office-map__marker office-map__marker--us" cx="130" cy="222" r="7" />
-            <circle class="office-map__halo office-map__halo--br" cx="472" cy="168" r="20" />
-            <circle class="office-map__marker office-map__marker--br" cx="472" cy="168" r="7" />
-          </svg>
+        <div class="office-route reveal" data-office-route>
+          <div class="office-route__buttons" role="group" aria-label="Focar em uma cidade no mapa">
+            <button type="button" class="office-route__btn" data-city="orlando" aria-pressed="false">Orlando</button>
+            <button type="button" class="office-route__btn" data-city="saopaulo" aria-pressed="false">São Paulo</button>
+          </div>
+          <div class="office-route__map">
+            <svg class="office-map__svg" viewBox="0 0 600 300" role="img" aria-label="Rota entre o escritório em Orlando e o time em São Paulo">
+              <defs>
+                <pattern id="office-map-dots" width="16" height="16" patternUnits="userSpaceOnUse">
+                  <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor" opacity="0.16" />
+                </pattern>
+              </defs>
+              <rect x="0" y="0" width="600" height="300" fill="url(#office-map-dots)" />
+              <path class="office-map__route" d="M130,222 C230,64 380,64 472,168" fill="none" />
+              <circle class="office-map__halo office-map__halo--us" cx="130" cy="222" r="20" />
+              <circle class="office-map__marker office-map__marker--us" cx="130" cy="222" r="7" />
+              <circle class="office-map__halo office-map__halo--br" cx="472" cy="168" r="20" />
+              <circle class="office-map__marker office-map__marker--br" cx="472" cy="168" r="7" />
+            </svg>
+          </div>
         </div>
         <ul class="office-map__legend">
           <li><span class="office-map__dot office-map__dot--us"></span>Orlando, Estados Unidos</li>
@@ -620,11 +626,11 @@
     </div>
   </div>
 
-  <script src="assets/js/i18n.js?v=20260929c" defer></script>
-  <script src="assets/js/main.js?v=20260929c" defer></script>
-  <script src="assets/js/button-glow.js?v=20260929c" defer></script>
+  <script src="assets/js/i18n.js?v=20260929d" defer></script>
+  <script src="assets/js/main.js?v=20260929d" defer></script>
+  <script src="assets/js/button-glow.js?v=20260929d" defer></script>
   <script type="module">
-    import { initGlobe } from './assets/js/globe.js?v=20260929c';
+    import { initGlobe } from './assets/js/globe.js?v=20260929d';
 
     var heroGlobeEl = document.getElementById('hero-globe');
     if (heroGlobeEl) {
