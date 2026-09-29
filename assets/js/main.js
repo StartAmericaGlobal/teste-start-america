@@ -96,6 +96,18 @@
   /* ---------- Seletor de idioma: tratado em assets/js/i18n.js ---------- */
   var tr = function (s) { return (typeof window.saT === 'function') ? window.saT(s) : s; };
 
+  /* ---------- Envio de leads para /api/lead (Vercel → PipeRun) ---------- */
+  function sendLead(payload) {
+    return fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('request failed');
+      return res.json().catch(function () { return {}; });
+    });
+  }
+
   /* ---------- FAQ accordion (acessível) ---------- */
   var faq = document.querySelector('[data-faq]');
   if (faq) {
@@ -317,14 +329,26 @@
       submitBtn.disabled = true;
       statusEl.textContent = tr('Enviando…');
 
-      // Simulação de envio — integrar com o endpoint real depois
-      setTimeout(function () {
+      sendLead({
+        origem: 'contato',
+        nome: form.nome.value,
+        email: form.email.value,
+        telefone: form.telefone.value,
+        empresa: form.empresa.value,
+        mensagem: 'País: ' + form.pais.value + ' | Idioma: ' + form.idioma.value +
+          ' | Prazo: ' + form.prazo.value + ' | Receita anual: ' + form.receita.value
+      }).then(function () {
         submitBtn.removeAttribute('data-loading');
         submitBtn.disabled = false;
         form.reset();
         statusEl.className = 'form-status is-success';
         statusEl.textContent = tr('Recebemos seu contato. Um especialista falará com você em breve.');
-      }, 1400);
+      }).catch(function () {
+        submitBtn.removeAttribute('data-loading');
+        submitBtn.disabled = false;
+        statusEl.className = 'form-status is-error';
+        statusEl.textContent = tr('Não conseguimos enviar agora. Tente novamente em instantes.');
+      });
     });
   }
 
@@ -536,14 +560,31 @@
       taxEmailSubmitBtn.disabled = true;
       taxEmailStatus.className = 'form-status';
       taxEmailStatus.textContent = tr('Enviando…');
-      setTimeout(function () {
+
+      var resultFaturamentoEl = document.querySelector('[data-result-faturamento]');
+      var resultCargaEl = document.querySelector('[data-gauge-br-value]');
+      var resultSavingsEl = document.querySelector('[data-result-savings]');
+
+      sendLead({
+        origem: 'calculadora',
+        nome: taxEmailForm.nome.value,
+        email: taxEmailForm.email.value,
+        mensagem: 'Resultado da calculadora — Faturamento: ' + (resultFaturamentoEl ? resultFaturamentoEl.textContent : '') +
+          ' | Carga tributária BR: ' + (resultCargaEl ? resultCargaEl.textContent : '') +
+          ' | Economia anual estimada: ' + (resultSavingsEl ? resultSavingsEl.textContent : '')
+      }).then(function () {
         taxEmailSubmitBtn.removeAttribute('data-loading');
         taxEmailSubmitBtn.disabled = false;
         taxEmailForm.reset();
         taxEmailStatus.className = 'form-status is-success';
         taxEmailStatus.textContent = tr('Pronto! Enviamos o resultado para o seu e-mail.');
         setTimeout(function () { closeModal(document.getElementById('tax-calc-modal')); }, 1600);
-      }, 1200);
+      }).catch(function () {
+        taxEmailSubmitBtn.removeAttribute('data-loading');
+        taxEmailSubmitBtn.disabled = false;
+        taxEmailStatus.className = 'form-status is-error';
+        taxEmailStatus.textContent = tr('Não conseguimos enviar agora. Tente novamente em instantes.');
+      });
     });
   }
 
@@ -644,15 +685,39 @@
         partnerSubmitBtn.setAttribute('data-loading', 'true');
         partnerSubmitBtn.disabled = true;
         partnerStatus.textContent = tr('Enviando…');
-        setTimeout(function () {
+
+        var currentMode = partnerFormRoot.querySelector('.tax-calc__toggle-btn.is-active').getAttribute('data-partner-mode');
+        var mensagemPartes = [];
+        if (currentMode === 'indicar') {
+          mensagemPartes.push('Indicado: ' + partnerForm.indicado_nome.value);
+          if (partnerForm.indicado_email.value) mensagemPartes.push('E-mail do indicado: ' + partnerForm.indicado_email.value);
+          if (partnerForm.indicado_telefone.value) mensagemPartes.push('Telefone do indicado: ' + partnerForm.indicado_telefone.value);
+        } else {
+          if (partnerForm.empresa.value) mensagemPartes.push('Escritório/Empresa: ' + partnerForm.empresa.value);
+          if (partnerForm.tipo.value) mensagemPartes.push('Tipo de parceria: ' + partnerForm.tipo.value);
+        }
+        if (partnerForm.mensagem.value) mensagemPartes.push(partnerForm.mensagem.value);
+
+        sendLead({
+          origem: currentMode === 'indicar' ? 'indicacao' : 'parceiro',
+          nome: partnerForm.nome.value,
+          email: partnerForm.email.value,
+          telefone: partnerForm.telefone.value,
+          empresa: partnerForm.empresa.value,
+          mensagem: mensagemPartes.join(' | ')
+        }).then(function () {
           partnerSubmitBtn.removeAttribute('data-loading');
           partnerSubmitBtn.disabled = false;
-          var modeToKeep = partnerFormRoot.querySelector('.tax-calc__toggle-btn.is-active').getAttribute('data-partner-mode');
           partnerForm.reset();
-          setPartnerMode(modeToKeep);
+          setPartnerMode(currentMode);
           partnerStatus.className = 'form-status is-success';
           partnerStatus.textContent = tr('Recebemos sua solicitação. Nosso time falará com você em breve.');
-        }, 1400);
+        }).catch(function () {
+          partnerSubmitBtn.removeAttribute('data-loading');
+          partnerSubmitBtn.disabled = false;
+          partnerStatus.className = 'form-status is-error';
+          partnerStatus.textContent = tr('Não conseguimos enviar agora. Tente novamente em instantes.');
+        });
       });
     }
   }
