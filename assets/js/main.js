@@ -216,6 +216,17 @@
     updateArrows();
   });
 
+  /* ---------- Planos: em telas sem hover (toque), abre/fecha ao tocar ---------- */
+  document.querySelectorAll('.planos-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      if (!window.matchMedia('(hover: none)').matches) return;
+      if (e.target.closest('a')) return; // deixa o botão navegar normalmente
+      var wasOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.planos-item.is-open').forEach(function (o) { o.classList.remove('is-open'); });
+      if (!wasOpen) item.classList.add('is-open');
+    });
+  });
+
   /* ---------- Reveal on scroll ---------- */
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
@@ -472,11 +483,18 @@
         var segmento = segmentoSel.value;
         var profile = segmentProfiles[segmento] || segmentProfiles.industria;
 
-        // Simples Nacional tem menos margem para aproveitar créditos não cumulativos
-        // de IBS/CBS do que o Lucro Real, então a carga sobe e o crédito encolhe.
-        var isSimples = currentRegime === 'simples';
-        var cargaBR = profile.cargaBR + (isSimples ? 3 : 0);
-        var creditos = profile.creditos * (isSimples ? 0.4 : 1);
+        // Cada regime aproveita de forma diferente os créditos não cumulativos de
+        // IBS/CBS da Reforma: o Lucro Real é o mais eficiente (base cheia), o Lucro
+        // Presumido fica no meio-termo e o Simples Nacional tem a menor margem —
+        // por isso a carga sobe e o crédito encolhe nessa ordem.
+        var REGIME_ADJUST = {
+          real: { carga: 0, creditos: 1 },
+          presumido: { carga: 1.5, creditos: 0.7 },
+          simples: { carga: 3, creditos: 0.4 }
+        };
+        var adjust = REGIME_ADJUST[currentRegime] || REGIME_ADJUST.real;
+        var cargaBR = profile.cargaBR + adjust.carga;
+        var creditos = profile.creditos * adjust.creditos;
         var otimMed = (profile.otimMin + profile.otimMax) / 2;
 
         if (resultFaturamento) resultFaturamento.textContent = formatBRCurrency(faturamento) + ',00';

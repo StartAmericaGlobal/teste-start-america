@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260929r" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260929s" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -283,7 +283,8 @@
                 <span class="tax-calc__label">Regime Tributário</span>
                 <div class="tax-calc__toggle" role="group" aria-label="Regime tributário">
                   <button type="button" class="tax-calc__toggle-btn is-active" data-regime="real">Lucro Real</button>
-                  <button type="button" class="tax-calc__toggle-btn" data-regime="simples">Lucro Simples presumido</button>
+                  <button type="button" class="tax-calc__toggle-btn" data-regime="presumido">Lucro Presumido</button>
+                  <button type="button" class="tax-calc__toggle-btn" data-regime="simples">Simples Nacional</button>
                 </div>
               </div>
 
@@ -339,6 +340,11 @@
               </button>
             </div>
           </div>
+
+          <p class="tax-calc__sources">
+            Fontes dos dados: Receita Federal do Brasil, Impostômetro (IBPT) e legislação da
+            Reforma Tributária (EC 132/2023 e leis complementares regulamentadoras).
+          </p>
         </div>
       </div>
     </section>
@@ -346,32 +352,83 @@
     <!-- ============ 8. PLANOS ============ -->
     <section class="planos-hero" id="planos" style="background-image:url('assets/img/planos-bg.png')">
       <div class="container">
-        <div class="section__head section__head--center reveal">
+        <div class="section__head reveal">
           <h2 class="h2">Um plano para cada momento da sua operação nos Estados Unidos</h2>
-          <p class="lead" style="color:#c8d2e2">Passe o mouse para ver os detalhes de cada plano e clique para falar com um especialista.</p>
+          <p class="lead" style="color:#c8d2e2">Passe o mouse em cada plano para ver os benefícios.</p>
         </div>
-      </div>
 
-      <div class="planos-pills reveal">
-        <a class="planos-pill" href="#contato" style="--pill-top:14%; --pill-left:8%;">
-          <span class="planos-pill__name">Essencial</span>
-          <span class="planos-pill__desc">Para profissionais liberais e freelancers iniciando a exportação de serviços.</span>
-        </a>
-        <a class="planos-pill" href="#contato" style="--pill-top:66%; --pill-left:6%;">
-          <span class="planos-pill__name">Profissional</span>
-          <span class="planos-pill__desc">O plano mais equilibrado, com suporte dedicado de alto nível.</span>
-        </a>
-        <a class="planos-pill planos-pill--featured" href="#contato" style="--pill-top:36%; --pill-left:46%;">
-          <span class="planos-pill__name">Prime <em>Recomendado</em></span>
-          <span class="planos-pill__desc">Para empresas com faturamento estruturado e múltiplos sócios.</span>
-        </a>
-        <a class="planos-pill" href="#contato" style="--pill-top:70%; --pill-left:60%;">
-          <span class="planos-pill__name">Corporate</span>
-          <span class="planos-pill__desc">Solução sob medida para Holdings ou operações de e-commerce complexas.</span>
-        </a>
-      </div>
+        <div class="planos-list reveal" data-hover-list>
+          <div class="planos-item" tabindex="0">
+            <div class="planos-item__head">
+              <span class="planos-item__name">Essencial</span>
+              <span class="planos-item__sub">Para liberais e freelancers exportando serviços</span>
+            </div>
+            <div class="planos-item__panel"><div>
+              <p class="planos-item__intro">Conheça os benefícios do Essencial:</p>
+              <ul class="tile-list">
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Abertura inclusa no anual</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Contabilidade e obrigações do ano</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Endereço fiscal e portal</li>
+              </ul>
+              <a class="btn btn--gold" href="#contato">Falar com especialista
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div></div>
+          </div>
 
-      <div class="container">
+          <div class="planos-item" tabindex="0">
+            <div class="planos-item__head">
+              <span class="planos-item__name">Profissional</span>
+              <span class="planos-item__sub">Suporte dedicado de alto nível</span>
+            </div>
+            <div class="planos-item__panel"><div>
+              <p class="planos-item__intro">Tudo do Essencial e mais:</p>
+              <ul class="tile-list">
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Bookkeeping mensal e sales tax</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Especialista dedicado</li>
+              </ul>
+              <a class="btn btn--gold" href="#contato">Falar com especialista
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div></div>
+          </div>
+
+          <div class="planos-item planos-item--featured" tabindex="0">
+            <div class="planos-item__head">
+              <span class="planos-item__name">Prime <em class="planos-item__badge">Recomendado</em></span>
+              <span class="planos-item__sub">Faturamento estruturado, múltiplos sócios</span>
+            </div>
+            <div class="planos-item__panel"><div>
+              <p class="planos-item__intro">Tudo do Profissional e mais:</p>
+              <ul class="tile-list">
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Estratégia tributária trimestral</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Dolarização e retiradas</li>
+              </ul>
+              <a class="btn btn--gold" href="#contato">Falar com especialista
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div></div>
+          </div>
+
+          <div class="planos-item" tabindex="0">
+            <div class="planos-item__head">
+              <span class="planos-item__name">Corporate</span>
+              <span class="planos-item__sub">Holdings e e-commerce complexo</span>
+            </div>
+            <div class="planos-item__panel"><div>
+              <p class="planos-item__intro">Solução sob medida com:</p>
+              <ul class="tile-list">
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Múltiplas empresas</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Folha e consolidação</li>
+                <li><span class="tile-list__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Suporte a auditoria</li>
+              </ul>
+              <a class="btn btn--gold" href="#contato">Falar com especialista
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div></div>
+          </div>
+        </div>
+
         <p class="plans-note">
           Para estruturas mais complexas, o preço também pode ser calculado como uma fração
           da economia gerada no seu cenário.
@@ -577,12 +634,12 @@
     </div>
   </div>
 
-  <script src="assets/js/i18n.js?v=20260929r" defer></script>
-  <script src="assets/js/main.js?v=20260929r" defer></script>
-  <script src="assets/js/button-glow.js?v=20260929r" defer></script>
+  <script src="assets/js/i18n.js?v=20260929s" defer></script>
+  <script src="assets/js/main.js?v=20260929s" defer></script>
+  <script src="assets/js/button-glow.js?v=20260929s" defer></script>
   <script type="module">
-    import { initGlobe } from './assets/js/globe.js?v=20260929r';
-    import { initFlatMap } from './assets/js/office-map.js?v=20260929r';
+    import { initGlobe } from './assets/js/globe.js?v=20260929s';
+    import { initFlatMap } from './assets/js/office-map.js?v=20260929s';
 
     var heroGlobeEl = document.getElementById('hero-globe');
     if (heroGlobeEl) {

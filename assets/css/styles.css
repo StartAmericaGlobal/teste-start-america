@@ -1030,15 +1030,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .member__text { font-size: 16.1px; color: var(--gray-600); margin-top: 8px; }
 
 /* ---------- 12. Planos ----------
-   Imagem de fundo de ponta a ponta + pills flutuantes com título só;
-   passar o mouse revela a descrição, clicar leva ao formulário. */
+   Imagem de fundo de ponta a ponta + lista alinhada à esquerda, no
+   mesmo espírito do acordeão de "Empresário brasileiro...": passar o
+   mouse (ou focar/tocar) revela os benefícios e o botão do plano. */
 .planos-hero {
   position: relative;
   isolation: isolate;
   color: #fff;
   background-size: cover;
   background-position: center;
-  padding-block: clamp(64px, 9vw, 120px) clamp(48px, 7vw, 88px);
+  padding-block: clamp(64px, 9vw, 120px) clamp(56px, 8vw, 96px);
   overflow: hidden;
 }
 .planos-hero::before {
@@ -1050,108 +1051,63 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .planos-hero .h2 { color: #fff; }
 .planos-hero .lead { color: #c8d2e2; }
+.planos-hero .plans-note { max-width: 640px; margin-inline: 0; text-align: left; }
 
-.planos-pills {
-  position: relative;
-  max-width: 1280px;
-  margin: clamp(24px, 4vw, 48px) auto 0;
-  height: clamp(420px, 44vw, 600px);
-  padding-inline: clamp(20px, 6vw, 80px);
-}
-.planos-pill {
-  position: absolute;
-  top: var(--pill-top);
-  left: var(--pill-left);
-  display: inline-flex;
+.planos-list {
+  max-width: 620px;
+  margin-top: clamp(28px, 4vw, 48px);
+  display: flex;
   flex-direction: column;
+}
+.planos-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  padding: clamp(18px, 2.6vw, 26px) 2px;
+  cursor: default;
+}
+.planos-list .planos-item:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+.planos-item__head { display: flex; flex-direction: column; gap: 4px; }
+.planos-item__name {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(23px, 2.6vw, 29px);
+  color: #fff;
+}
+.planos-item--featured .planos-item__name { color: var(--gold-hi); }
+.planos-item__badge {
+  display: inline-block;
+  font-style: normal;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 13.8px;
-  letter-spacing: 0.04em;
+  font-size: 10.4px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #fff;
-  background: rgba(11, 21, 36, 0.55);
-  border: 1px solid rgba(var(--gold-rgb), 0.5);
-  border-radius: var(--radius-pill);
-  padding: 13px 24px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease, color 220ms ease;
-}
-.planos-pill:hover,
-.planos-pill:focus-visible {
-  background: var(--gold);
   color: var(--navy);
-  border-color: var(--gold-hi);
-  transform: translateY(-2px);
+  background: var(--gold);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  margin-left: 10px;
+  vertical-align: middle;
 }
-.planos-pill--featured {
-  border-color: var(--gold-hi);
-  box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.3), 0 0 26px rgba(var(--gold-rgb), 0.4);
-}
-.planos-pill__name em {
-  display: block;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  opacity: 0.8;
-  margin-top: 3px;
-}
-.planos-pill__desc {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  width: max-content;
-  max-width: 260px;
-  background: var(--white);
-  color: var(--gray-600);
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 13.8px;
-  text-transform: none;
-  letter-spacing: normal;
-  line-height: 1.5;
-  border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.45);
+.planos-item__sub { font-size: 13.8px; color: #9fb0c6; }
+.planos-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
-  pointer-events: none;
-  z-index: 3;
+  transition: grid-template-rows 320ms ease, opacity 280ms ease;
 }
-.planos-pill:hover .planos-pill__desc,
-.planos-pill:focus-visible .planos-pill__desc {
+.planos-item__panel > * { overflow: hidden; }
+.planos-item:hover .planos-item__panel,
+.planos-item:focus-within .planos-item__panel,
+.planos-item.is-open .planos-item__panel {
+  grid-template-rows: 1fr;
   opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
 }
-@media (max-width: 767px) {
-  .planos-pills {
-    height: auto;
-    padding-inline: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .planos-pill {
-    position: static;
-    align-items: center;
-    text-align: center;
-  }
-  .planos-pill__desc {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    width: 100%;
-    max-width: none;
-    margin-top: 10px;
-    box-shadow: none;
-    pointer-events: auto;
-  }
+.planos-item__intro { margin-top: 14px; font-size: 14.4px; color: #cbd5e1; }
+.planos-item .tile-list { padding: 10px 0 4px; }
+.planos-item .tile-list li { color: #cbd5e1; }
+.planos-item .btn { margin-top: 6px; }
+@media (max-width: 900px) {
+  .planos-list { max-width: none; }
 }
 
 .plans-note {
