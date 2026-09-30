@@ -82,6 +82,9 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Evita "palavra órfã" sozinha na última linha de parágrafos e listas
+     (navegadores sem suporte simplesmente ignoram, sem quebrar nada). */
+  text-wrap: pretty;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,6 +118,9 @@ h1, h2, h3, h4 {
   line-height: 1.15;
   /* Sorts Mill Goudy só tem o peso regular — evita o "bold" sintético borrado */
   font-weight: 400;
+  /* Distribui as linhas de forma mais equilibrada, sem deixar uma
+     palavra sozinha na última linha do título. */
+  text-wrap: balance;
 }
 
 p { margin: 0; }
@@ -287,7 +293,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--block { width: 100%; }
 
 /* ---------- 4b. Brilho dourado nas bordas (segue o cursor) ---------- */
-.btn-glow { position: relative; display: inline-block; max-width: 100%; }
+.btn-glow {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  /* line-height:0 evita que o wrapper reserve o "strut" de linha do
+     texto ao redor (herdado do body), que deixava uns px de vão acima
+     do botão e descentralizava o brilho em quase todos os botões. */
+  line-height: 0;
+}
 .btn-glow:has(.btn--block) { display: block; width: 100%; }
 .btn-glow .btn { position: relative; z-index: 1; }
 .btn-glow__core {
@@ -858,6 +872,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 20.7px;
   color: #fff;
   line-height: 1.15;
+  text-wrap: balance;
 }
 .tile-visual__sub {
   position: relative;
@@ -865,6 +880,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 12.6px;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.4;
+  text-wrap: pretty;
 }
 .tile-visual--2::before { opacity: 0.7; }
 .tile-visual--3::before { opacity: 0.85; }
@@ -1049,6 +1065,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-weight: 400;
   font-size: clamp(23px, 2.6vw, 29px);
   color: #fff;
+  text-wrap: balance;
 }
 .planos-item--featured .planos-item__name { color: var(--gold-hi); }
 .planos-item__badge {
@@ -1083,7 +1100,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .planos-item__intro { margin-top: 14px; font-size: 14.4px; color: #cbd5e1; }
 .planos-item .tile-list { padding: 10px 0 4px; }
 .planos-item .tile-list li { color: #cbd5e1; }
-.planos-item .btn { margin-top: 6px; }
+/* Margem no wrapper (.btn-glow), não no .btn — senão o brilho, que é
+   centralizado no wrapper, fica deslocado pelo vão da margem. */
+.planos-item .btn-glow { margin-top: 6px; }
+.planos-item .btn:not(.btn-glow .btn) { margin-top: 6px; }
 @media (max-width: 900px) {
   .planos-list { max-width: none; }
 }
