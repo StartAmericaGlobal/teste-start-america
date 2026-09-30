@@ -515,21 +515,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   }
 }
 
-/* Transição em blur entre o hero e a primeira seção — "derrete" a borda
-   escura do hero na seção clara seguinte, com o desfoque crescendo em
-   direção à base. */
-.section-blur {
-  position: relative;
-  z-index: 5;
-  height: clamp(110px, 13vw, 200px);
-  margin-top: clamp(-110px, -13vw, -200px);
-  pointer-events: none;
-  background: linear-gradient(to bottom,
-    rgba(6, 12, 22, 0.6) 0%,
-    rgba(6, 12, 22, 0.32) 45%,
-    rgba(255, 255, 255, 0) 100%);
-}
-
 /* Mockup do simulador — cartão branco */
 .simulator {
   background: var(--white);
