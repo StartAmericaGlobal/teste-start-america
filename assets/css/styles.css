@@ -625,7 +625,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    estreitas/altas o corte centralizado podia cair em cima do conteúdo
    da foto, atrapalhando a leitura. */
 .stack__panel--left { justify-content: flex-start; background-position: left center; }
-.stack__panel--right { justify-content: flex-end; background-position: right center; }
+.stack__panel--right { justify-content: flex-end; background-position: right top; }
 /* Gradiente sutil só o suficiente pra legibilidade — sem caixa, sem cartão */
 .stack__panel--dark-text::before {
   content: "";
