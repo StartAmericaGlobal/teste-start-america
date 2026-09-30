@@ -528,13 +528,6 @@ ul { margin: 0; padding: 0; list-style: none; }
     rgba(6, 12, 22, 0.6) 0%,
     rgba(6, 12, 22, 0.32) 45%,
     rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
-}
-@media (prefers-reduced-motion: reduce) {
-  .section-blur { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 }
 
 /* Mockup do simulador — cartão branco */
@@ -662,7 +655,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .stack__text { font-size: clamp(16.1px, 1.6vw, 18.4px); line-height: 1.65; }
 @media (max-width: 767px) {
-  .stack__panel { min-height: 100svh; justify-content: flex-start !important; }
+  .stack__panel { min-height: 100svh; }
   .stack__inner { max-width: 100%; }
 }
 
