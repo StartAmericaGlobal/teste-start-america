@@ -602,63 +602,69 @@ ul { margin: 0; padding: 0; list-style: none; }
 #servicos .section__head { margin-bottom: clamp(16px, 2.5vw, 24px); }
 #servicos-cta { padding-top: clamp(16px, 3vw, 32px); padding-bottom: clamp(40px, 6vw, 72px); }
 
-/* ---------- 6b. Pilha com efeito de paralaxe ("O que fazemos por você") ---------- */
+/* ---------- 6b. Pilha com efeito de paralaxe ("O que fazemos por você") ----------
+   Sem contêiner/bloco: cada painel é a imagem de fundo inteira, de ponta a
+   ponta da tela, com a informação sobreposta do lado esquerdo ou direito. */
 .stack { position: relative; }
 .stack__panel {
   position: sticky;
   top: 0;
+  min-height: 88vh;
   display: flex;
   align-items: center;
-  padding-block: clamp(20px, 3vh, 36px);
+  padding: clamp(28px, 6vw, 96px) clamp(20px, 6vw, 96px);
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-/* Mais respiro embaixo dos dois primeiros blocos, para separar melhor
-   as informações 01, 02 e 03 entre si. */
-.stack__panel:nth-child(1),
-.stack__panel:nth-child(2) {
-  padding-bottom: clamp(56px, 8vw, 96px);
+.stack__panel--left { justify-content: flex-start; }
+.stack__panel--right { justify-content: flex-end; }
+/* Gradiente sutil só o suficiente pra legibilidade — sem caixa, sem cartão */
+.stack__panel--dark-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.25) 32%, transparent 56%);
 }
-.stack__panel--light { background: var(--white); color: var(--gray-600); }
-.stack__panel--dark { background: var(--navy-deep); color: var(--text); }
-.stack__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(32px, 5vw, 72px);
-  align-items: center;
-  max-width: 1120px;
+.stack__panel--light-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(270deg, rgba(6, 12, 22, 0.6) 0%, rgba(6, 12, 22, 0.22) 32%, transparent 56%);
 }
-.stack__panel:nth-child(even) .stack__media { order: -1; }
-.stack__inner { max-width: 640px; display: flex; flex-direction: column; gap: 16px; }
-.stack__media {
-  border-radius: 20px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
-}
-.stack__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-@media (max-width: 900px) {
-  .stack__grid { grid-template-columns: 1fr; gap: 28px; }
-  .stack__panel:nth-child(even) .stack__media { order: 0; }
-  .stack__media { max-width: 420px; margin: 0 auto; }
+.stack__panel--dark-text .stack__num { color: rgba(11, 21, 36, 0.22); }
+.stack__panel--dark-text .stack__title,
+.stack__panel--dark-text .stack__text { color: var(--heading); }
+.stack__panel--dark-text .stack__text { color: var(--gray-600); }
+.stack__panel--light-text .stack__num { color: rgba(226, 201, 138, 0.4); }
+.stack__panel--light-text .stack__title { color: #fff; }
+.stack__panel--light-text .stack__text { color: #d7deea; }
+.stack__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .stack__num {
   font-family: var(--font-title);
   font-size: clamp(52px, 8vw, 96px);
   line-height: 1;
-  color: rgba(var(--gold-rgb), 0.28);
 }
-.stack__panel--dark .stack__num { color: rgba(var(--gold-rgb), 0.35); }
 .stack__inner .tag { margin-top: -8px; }
 .stack__title {
   font-family: var(--font-title);
   font-weight: 400;
   font-size: clamp(28.8px, 4vw, 42px);
   line-height: 1.15;
-  color: var(--heading);
 }
-.stack__panel--dark .stack__title { color: #fff; }
-.stack__text { font-size: clamp(16.1px, 1.6vw, 18.4px); line-height: 1.65; color: var(--gray-600); }
-.stack__panel--dark .stack__text { color: #b4c0d0; }
+.stack__text { font-size: clamp(16.1px, 1.6vw, 18.4px); line-height: 1.65; }
+@media (max-width: 767px) {
+  .stack__panel { min-height: 100svh; justify-content: flex-start !important; }
+  .stack__inner { max-width: 100%; }
+}
 
 /* ---------- 7. Grid de cards ---------- */
 .card-grid {
@@ -784,58 +790,31 @@ ul { margin: 0; padding: 0; list-style: none; }
 .split__body { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 40px; }
 .split__body .btn { margin-top: 8px; }
 
-/* Carrossel "onde estamos" — fotos passando automaticamente em looping
-   contínuo, coladas uma na outra, sem bordas arredondadas e sem setas. */
-.location-carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.location-carousel__viewport { overflow: hidden; }
-.location-carousel__track {
+/* Fotos "onde estamos" — fixas (sem animação), uma linha só, de ponta a
+   ponta da tela (borda infinita: escapa do .container). */
+.location-strip {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   display: flex;
-  gap: 0;
   list-style: none;
-  margin: 0;
   padding: 0;
-  width: max-content;
-  animation: location-carousel-scroll 34s linear infinite;
 }
-.location-carousel:hover .location-carousel__track { animation-play-state: paused; }
-.location-carousel__slide {
-  flex: 0 0 auto;
-  width: clamp(200px, 22vw, 300px);
-}
-.location-carousel__slide img {
+.location-strip li { flex: 1 1 0; min-width: 0; }
+.location-strip img {
   width: 100%;
   height: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: 0;
-  box-shadow: none;
   display: block;
 }
-@keyframes location-carousel-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .location-carousel__track { animation: none; }
-}
-
-/* ---------- 9. Urgência: cards compactos ---------- */
-.mini-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-bottom: var(--stack-gap);
+@media (max-width: 767px) {
+  .location-strip { flex-wrap: wrap; }
+  .location-strip li { flex: 0 0 50%; }
 }
 
 /* ---------- 9b. Cartão "tile": painel escuro com brilho + corpo claro ----------
    Estilo adaptado da referência de níveis de cartão (XP), recolorido para a
-   identidade dourada da Start América. Usado por .mini-card, .plan e .tier. */
-.mini-card,
-.plan,
+   identidade dourada da Start América. Usado por .tier (níveis de parceria). */
 .tier {
   position: relative;
   background: var(--white-soft);
@@ -848,21 +827,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 30px 60px -40px rgba(10, 17, 40, 0.4);
   transition: transform 240ms ease, box-shadow 240ms ease;
 }
-.mini-card:hover,
-.plan:hover,
 .tier:hover {
   transform: translateY(-6px);
   box-shadow: 0 40px 70px -34px rgba(10, 17, 40, 0.45);
 }
-
-/* Bullets de "Empresário brasileiro..." — sem contorno nem sombreamento,
-   título do painel um pouco menor. */
-.mini-card {
-  border: none;
-  box-shadow: none;
-}
-.mini-card:hover { box-shadow: none; }
-.mini-card .tile-visual__name { font-size: 17.2px; }
 
 /* Painel escuro no topo do cartão, com o brilho dourado "gloss" no canto —
    aproxima visualmente do cartão de referência sem depender de imagem. */
@@ -931,8 +899,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   line-height: 1.5;
   color: var(--gray-600);
 }
-.mini-card .tile-intro { margin-bottom: 4px; }
-
 .tile-list { display: flex; flex-direction: column; gap: 11px; padding: 0 6px 10px; }
 .tile-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.4px; line-height: 1.45; color: var(--gray-600); }
 .tile-list__check {
@@ -1063,23 +1029,129 @@ ul { margin: 0; padding: 0; list-style: none; }
 .member__role { font-size: 15px; color: var(--gold); font-family: var(--font-display); font-weight: 600; }
 .member__text { font-size: 16.1px; color: var(--gray-600); margin-top: 8px; }
 
-/* ---------- 12. Planos ---------- */
-/* Visual "tile" + corpo claro (ver bloco 9b); aqui só o que é específico do plano. */
-.plan--featured .tile-visual { box-shadow: 0 0 0 2px rgba(var(--gold-rgb), 0.55); }
-.plan__badge {
+/* ---------- 12. Planos ----------
+   Imagem de fundo de ponta a ponta + pills flutuantes com título só;
+   passar o mouse revela a descrição, clicar leva ao formulário. */
+.planos-hero {
+  position: relative;
+  isolation: isolate;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  padding-block: clamp(64px, 9vw, 120px) clamp(48px, 7vw, 88px);
+  overflow: hidden;
+}
+.planos-hero::before {
+  content: "";
   position: absolute;
-  top: -13px;
-  left: 24px;
-  background: var(--gold);
-  color: var(--navy);
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(6, 12, 22, 0.6) 0%, rgba(6, 12, 22, 0.32) 42%, rgba(6, 12, 22, 0.8) 100%);
+}
+.planos-hero .h2 { color: #fff; }
+.planos-hero .lead { color: #c8d2e2; }
+
+.planos-pills {
+  position: relative;
+  max-width: 1280px;
+  margin: clamp(24px, 4vw, 48px) auto 0;
+  height: clamp(420px, 44vw, 600px);
+  padding-inline: clamp(20px, 6vw, 80px);
+}
+.planos-pill {
+  position: absolute;
+  top: var(--pill-top);
+  left: var(--pill-left);
+  display: inline-flex;
+  flex-direction: column;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 12.6px;
-  letter-spacing: 0.06em;
+  font-size: 13.8px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 5px 12px;
+  color: #fff;
+  background: rgba(11, 21, 36, 0.55);
+  border: 1px solid rgba(var(--gold-rgb), 0.5);
   border-radius: var(--radius-pill);
-  z-index: 2;
+  padding: 13px 24px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease, color 220ms ease;
+}
+.planos-pill:hover,
+.planos-pill:focus-visible {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold-hi);
+  transform: translateY(-2px);
+}
+.planos-pill--featured {
+  border-color: var(--gold-hi);
+  box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.3), 0 0 26px rgba(var(--gold-rgb), 0.4);
+}
+.planos-pill__name em {
+  display: block;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  margin-top: 3px;
+}
+.planos-pill__desc {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: max-content;
+  max-width: 260px;
+  background: var(--white);
+  color: var(--gray-600);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13.8px;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
+  pointer-events: none;
+  z-index: 3;
+}
+.planos-pill:hover .planos-pill__desc,
+.planos-pill:focus-visible .planos-pill__desc {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+@media (max-width: 767px) {
+  .planos-pills {
+    height: auto;
+    padding-inline: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .planos-pill {
+    position: static;
+    align-items: center;
+    text-align: center;
+  }
+  .planos-pill__desc {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+    box-shadow: none;
+    pointer-events: auto;
+  }
 }
 
 .plans-note {
@@ -1312,6 +1384,41 @@ ul { margin: 0; padding: 0; list-style: none; }
   line-height: 1.6;
 }
 
+/* Variante minimalista: sem caixa/sombra, divisórias finas, ícone "+/-" */
+.faq--plus { max-width: 880px; gap: 0; }
+.faq--plus .faq__item {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-100);
+}
+.faq--plus .faq__trigger {
+  min-height: 0;
+  padding: 24px 4px;
+  font-size: 19.6px;
+}
+.faq--plus .faq__trigger em {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13.8px;
+  letter-spacing: 0.03em;
+  color: var(--gray-400);
+  margin-left: 12px;
+}
+.faq__plus { position: relative; width: 18px; height: 18px; flex: none; }
+.faq__plus::before,
+.faq__plus::after {
+  content: "";
+  position: absolute;
+  background: var(--gold);
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+.faq__plus::before { left: 0; top: 50%; width: 100%; height: 2px; transform: translateY(-50%); }
+.faq__plus::after { top: 0; left: 50%; width: 2px; height: 100%; transform: translateX(-50%); }
+.faq--plus .faq__trigger[aria-expanded="true"] .faq__plus::after { opacity: 0; transform: translateX(-50%) rotate(90deg); }
+.faq--plus .faq__panel p { padding: 0 28px 26px 4px; }
+
 /* ---------- 18. Formulário ---------- */
 .form-card {
   background: var(--navy);
@@ -1365,6 +1472,37 @@ ul { margin: 0; padding: 0; list-style: none; }
 .field .error-text { font-size: 13.8px; color: var(--red); min-height: 1em; }
 .field.has-error input,
 .field.has-error select { border-color: var(--red); }
+
+/* Variante minimalista: sem cartão/borda, campos "underline" só */
+.form-card--minimal {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.form-card--minimal h2 { color: var(--heading); text-align: center; }
+.form-card--minimal .field label { color: var(--gray-600); font-weight: 500; font-size: 13.8px; text-transform: uppercase; letter-spacing: 0.04em; }
+.form-card--minimal .field input,
+.form-card--minimal .field select {
+  min-height: 0;
+  padding: 10px 2px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--gray-100);
+  border-radius: 0;
+  color: var(--heading);
+}
+.form-card--minimal .field select { padding-right: 24px; background-position: right 2px center; }
+.form-card--minimal .field select option,
+.form-card--minimal .field select optgroup { color: var(--heading); background: var(--white); }
+.form-card--minimal .field input::placeholder { color: var(--gray-400); }
+.form-card--minimal .field input:focus,
+.form-card--minimal .field select:focus {
+  box-shadow: none;
+  border-bottom-color: var(--gold);
+}
 .field.has-error .error-text { display: block; }
 
 .form-actions { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -1850,12 +1988,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   .tax-calc { grid-template-columns: 1fr; gap: 32px; }
   .tax-calc__tax-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .location-carousel__slide { flex-basis: calc((100% - 24px) / 2); }
-
   .card-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
-
-  .mini-grid { grid-template-columns: repeat(2, 1fr); }
 
   .tier-grid,
   .tier-cta-row { grid-template-columns: repeat(2, 1fr); }
@@ -1883,7 +2017,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .card-grid,
   .card-grid--3,
   .card-grid--2,
-  .mini-grid,
   .tier-grid,
   .tier-cta-row { grid-template-columns: 1fr; }
 
@@ -1909,11 +2042,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 
   .final-cta__buttons { flex-direction: column; }
   .final-cta__buttons .btn { width: 100%; }
-
-  .location-carousel { gap: 8px; }
-  .location-carousel__slide { flex-basis: 82%; }
-  .location-carousel__arrow { width: 38px; height: 38px; }
-  .location-carousel__arrow svg { width: 16px; height: 16px; }
 
   /* Carrossel horizontal com snap */
   .snap-scroller {
