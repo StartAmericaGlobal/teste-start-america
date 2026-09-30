@@ -1043,8 +1043,18 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: #fff;
   background-size: cover;
   background-position: center;
+  /* fixed: o tamanho do fundo passa a ser calculado pela janela, não pela
+     altura da seção — então quando um plano abre no hover e a seção cresce,
+     a imagem não estica/reencaixa (fica "parada", sem aumentar/diminuir). */
+  background-attachment: fixed;
   padding-block: clamp(64px, 9vw, 120px) clamp(56px, 8vw, 96px);
   overflow: hidden;
+}
+@media (max-width: 900px), (pointer: coarse) {
+  /* background-attachment:fixed é instável/ignorado em muitos navegadores
+     mobile; nessas telas o hover também não existe, então não há o
+     problema de redimensionar — mantém scroll normal, mais leve. */
+  .planos-hero { background-attachment: scroll; }
 }
 .planos-hero::before {
   content: "";
